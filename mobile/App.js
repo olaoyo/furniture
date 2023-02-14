@@ -1,20 +1,28 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { StatusBar } from "expo-status-bar";
+import { Platform } from "react-native";
+import Search from "./src/components/inputs/search/Search.component";
+
+import { SafeAreaiOS, SafeAreaAndroid } from "./src/components/utils/SafeArea.styles";
+
+
+import { NavigationContainer } from "@react-navigation/native";
+
+import { ThemeProvider } from "styled-components/native";
+import { theme } from "./src/themes/themes";
+
+import BottomTabs from "./src/components/routes/tabs/BottomTabs.component";
 
 export default function App() {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <>
+      <StatusBar style="dark" backgroundColor={theme.colors.primary} />
+      <ThemeProvider theme={theme}>
+        {Platform.OS === "android" ? <SafeAreaAndroid /> : <SafeAreaiOS />}
+        <Search />
+        <NavigationContainer>
+          <BottomTabs />
+        </NavigationContainer>
+      </ThemeProvider>
+    </>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
