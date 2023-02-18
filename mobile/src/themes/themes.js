@@ -29,9 +29,9 @@ export const theme = {
     },
     
     fonts: {
-      body: "Oswald_400Regular",
-      heading: "Lato_400Regular",
-      monospace: "Oswald_400Regular",
+      regular: "Poppins_400Regular",
+      medium: "Poppins_500Medium",
+      bold: "Poppins_700Bold",
     },
   
     fontWeights: {

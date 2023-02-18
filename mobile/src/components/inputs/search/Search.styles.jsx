@@ -16,7 +16,7 @@ export const SearchBar = styled.View`
   width: 350px;
   height: 50px;
   border-radius: 5px;
-  margin: 5px 0;
+  margin: 5px 0 15px 0;
   padding-left: 20px;
   background-color: ${({ theme }) => theme.colors.white};
   justify-content: left;

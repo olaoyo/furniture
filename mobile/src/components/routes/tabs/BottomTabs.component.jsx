@@ -4,10 +4,10 @@ import { theme } from "../../../themes/themes";
 
 import { Ionicons } from "@expo/vector-icons";
 
-import Home from "../../screens/home/Home.component";
-import Furnitures from "../../screens/shop/Furnitures.component";
-import Profile from "../../screens/profile/Profile.component";
-import Cart from "../../screens/cart/Cart.component";
+import Home from "../../screens/home/Home";
+import Furnitures from "../../screens/shop/Furnitures";
+import Profile from "../../screens/profile/Profile";
+import Cart from "../../screens/cart/Cart";
 
 const { Navigator, Screen } = createBottomTabNavigator();
 
