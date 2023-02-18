@@ -23,6 +23,7 @@ export const FurnitureTitle = styled.Text`
   font-family: ${({ theme }) => theme.fonts.medium};
   font-size: ${({ theme }) => theme.fontSizes.caption};
   text-align: center;
+  margin: 10px 0;
 `;
 
 export const FurniturePrice = styled.Text`

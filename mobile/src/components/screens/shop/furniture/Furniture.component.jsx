@@ -6,13 +6,16 @@ import {
   FurniturePrice,
 } from "./Furniture.styles";
 
-function Furniture({ image, name, price }) {
+import Rating from "../../../rating/Rating.component";
+
+function Furniture({ image, name, price, rating }) {
   return (
     <FurnitureStyles>
       <FurnitureGrid>
         <FurnitureImage source={image} />
         <FurnitureTitle>{name}</FurnitureTitle>
         <FurniturePrice>${price}</FurniturePrice>
+        <Rating value={rating} />
       </FurnitureGrid>
     </FurnitureStyles>
   );

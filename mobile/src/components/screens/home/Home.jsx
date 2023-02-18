@@ -19,7 +19,7 @@ function Home() {
       keyExtractor={(furniture) => furniture.id}
       numColumns={2}
       renderItem={({ item }) => (
-        <Furniture image={item.image} name={item.name} price={item.price} />
+        <Furniture image={item.image} name={item.name} price={item.price} rating={item.rating} />
       )}
     />
   );
