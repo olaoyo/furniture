@@ -9,12 +9,14 @@ export const HeaderStyles = styled.header`
   padding: 3rem 0;
 `;
 
-export const Logo = styled.p`
-  font-size: ${({ theme }) => theme.fontSizes.paragraphs.p2};
-  font-weight: ${({ theme }) => theme.fontWeights.semiBold};
+export const LogoGrid = styled.div`
   grid-column: 2 / span 2;
-  width: 15rem;
-  height: 3rem;
+  align-self: center;
+  margin-left: 1.5rem;
+`;
+
+export const Logo = styled.img`
+  grid-column: 2 / span 2;
   align-self: center;
   margin-left: 1.5rem;
 `;
