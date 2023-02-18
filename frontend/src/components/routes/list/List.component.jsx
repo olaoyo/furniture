@@ -8,6 +8,7 @@ import {
   FurnitureNamePrice,
 } from "./List.styles";
 import furniture from "../../../furniture";
+import Rating from "../../rating/Rating.component";
 
 function FurnitureList() {
   return (
@@ -20,6 +21,7 @@ function FurnitureList() {
                 <FurnitureNamePrice>{furniture.name}</FurnitureNamePrice>
                 <FurnitureNamePrice price>${furniture.price}</FurnitureNamePrice>
               </FurnitureText>
+              <Rating value={furniture.rating} />
           </Link>
         </FurnitureCard>
       ))}
