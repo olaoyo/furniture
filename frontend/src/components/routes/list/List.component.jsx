@@ -7,21 +7,21 @@ import {
   FurnitureText,
   FurnitureNamePrice,
 } from "./List.styles";
-import furniture from "../../../furniture";
+import furnitures from "../../../furniture";
 import Rating from "../../rating/Rating.component";
 
 function FurnitureList() {
   return (
     <FurnitureListStyles>
-      {furniture.map((furniture) => (
+      {furnitures.map((furniture) => (
         <FurnitureCard key={furniture.id}>
-          <Link to={`furniture/${furniture.id}`}>
+          <Link to={`/shop/furniture/${furniture.id}`}>
               <FurnitureImg src={furniture.image} />
               <FurnitureText>
                 <FurnitureNamePrice>{furniture.name}</FurnitureNamePrice>
                 <FurnitureNamePrice price>${furniture.price}</FurnitureNamePrice>
               </FurnitureText>
-              <Rating value={furniture.rating} />
+              <Rating rating={furniture.rating} margin />
           </Link>
         </FurnitureCard>
       ))}

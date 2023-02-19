@@ -73,3 +73,13 @@ export const FollowUsButton = styled.button`
     cursor: pointer;
   }
 `;
+
+export const AddToCartButton = styled.button`
+  font-size: ${({ theme }) => theme.fontSizes.paragraphs.p2};
+  color: ${({ theme }) => theme.colors.black};
+  width: 21.5rem;
+  height: 6.4rem;
+  background: transparent;
+  border: 1px solid ${({ theme }) => theme.colors.black};
+  border-radius: 15px;
+`;
