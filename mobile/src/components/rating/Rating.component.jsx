@@ -1,12 +1,12 @@
 import { RatingStyles, RatingStars, RatingIcon } from "./Rating.styles";
 
-function Rating({ value }) {
+function Rating({ rating }) {
   return (
     <RatingStyles>
       <RatingStars>
-        {value >= 1 ? (
+        {rating >= 1 ? (
           <RatingIcon name="star" />
-        ) : value >= 0.5 ? (
+        ) : rating >= 0.5 ? (
           <RatingIcon name="star-half" />
         ) : (
           ""
@@ -14,9 +14,9 @@ function Rating({ value }) {
       </RatingStars>
 
       <RatingStars>
-        {value >= 2 ? (
+        {rating >= 2 ? (
           <RatingIcon name="star" />
-        ) : value >= 1.5 ? (
+        ) : rating >= 1.5 ? (
           <RatingIcon name="star-half" />
         ) : (
           ""
@@ -24,9 +24,9 @@ function Rating({ value }) {
       </RatingStars>
 
       <RatingStars>
-        {value >= 3 ? (
+        {rating >= 3 ? (
           <RatingIcon name="star" />
-        ) : value >= 2.5 ? (
+        ) : rating >= 2.5 ? (
           <RatingIcon name="star-half" />
         ) : (
           ""
@@ -34,9 +34,9 @@ function Rating({ value }) {
       </RatingStars>
 
       <RatingStars>
-        {value >= 4 ? (
+        {rating >= 4 ? (
           <RatingIcon name="star" />
-        ) : value >= 3.5 ? (
+        ) : rating >= 3.5 ? (
           <RatingIcon name="star-half" />
         ) : (
           ""
@@ -44,9 +44,9 @@ function Rating({ value }) {
       </RatingStars>
 
       <RatingStars>
-        {value >= 5 ? (
+        {rating >= 5 ? (
           <RatingIcon name="star" />
-        ) : value >= 4.5 ? (
+        ) : rating >= 4.5 ? (
           <RatingIcon name="star-half" />
         ) : (
           ""

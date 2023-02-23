@@ -1,18 +1,27 @@
-import furniture from "../../../furniture";
+import furnitures from "../../../furniture";
 import Furniture from "./furniture/Furniture.component";
 import { FurnitureFlatList } from "./furniture/Furniture.styles";
 
 function Furnitures() {
+  
+
   return (
     <FurnitureFlatList
-      data={furniture}
+      data={furnitures}
       keyExtractor={(furniture) => furniture.id}
       numColumns={2}
       renderItem={({ item }) => (
-        <Furniture image={item.image} name={item.name} price={item.price} rating={item.rating} />
+        <Furniture
+          id={item.id}
+          image={item.image}
+          name={item.name}
+          price={item.price}
+          rating={item.rating}
+        />
       )}
     />
   );
 }
 
 export default Furnitures;
+

@@ -1,3 +1,5 @@
+import { useNavigation } from "@react-navigation/native";
+
 import {
   FurnitureStyles,
   FurnitureGrid,
@@ -8,14 +10,20 @@ import {
 
 import Rating from "../../../rating/Rating.component";
 
-function Furniture({ image, name, price, rating }) {
+function Furniture({ id, image, name, price, rating }) {
+  const navigation = useNavigation();
+
+  const furnitureDetailsHandler = () => {
+    navigation.navigate("Details", { furnitureId: id });
+  };
+
   return (
-    <FurnitureStyles>
+    <FurnitureStyles onPress={furnitureDetailsHandler} activeOpacity={0.5}>
       <FurnitureGrid>
         <FurnitureImage source={image} />
         <FurnitureTitle>{name}</FurnitureTitle>
         <FurniturePrice>${price}</FurniturePrice>
-        <Rating value={rating} />
+        <Rating rating={rating} />
       </FurnitureGrid>
     </FurnitureStyles>
   );

@@ -12,7 +12,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import { ThemeProvider } from "styled-components/native";
 import { theme } from "./src/themes/themes";
 
-import BottomTabs from "./src/components/routes/tabs/BottomTabs.component";
+import StackNavigation from "./src/components/routes/stack/Stack.component";
 
 import {
   useFonts as usePoppins,
@@ -39,7 +39,7 @@ export default function App() {
         {Platform.OS === "android" ? <SafeAreaAndroid /> : <SafeAreaiOS />}
         <Search />
         <NavigationContainer>
-          <BottomTabs />
+          <StackNavigation />
         </NavigationContainer>
       </ThemeProvider>
     </>

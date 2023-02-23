@@ -3,7 +3,7 @@ import { HeroStyles, HeroText, HeroHeader, HeroImage } from "./Hero.styles";
 import { useNavigation } from "@react-navigation/native";
 
 import rocketSingleSeater from "./img/rocketSingleSeater.png";
-import { BorderBottomButton, BorderBottomText } from "../../../buttons/Buttons";
+import { CustomButton as ShopNow, ButtonText } from "../../../buttons/Buttons";
 
 function Hero() {
   const { navigate } = useNavigation();
@@ -15,9 +15,9 @@ function Hero() {
     <HeroStyles>
       <HeroText>
         <HeroHeader>Rocket single seater</HeroHeader>
-        <BorderBottomButton activeOpacity={0.5} onPress={shopNowHandler}>
-          <BorderBottomText>Shop Now</BorderBottomText>
-        </BorderBottomButton>
+        <ShopNow activeOpacity={0.5} onPress={shopNowHandler}>
+          <ButtonText>Shop Now</ButtonText>
+        </ShopNow>
       </HeroText>
       <HeroImage source={rocketSingleSeater} />
     </HeroStyles>

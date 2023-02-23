@@ -1,6 +1,6 @@
 import styled from "styled-components/native";
 
-export const BorderBottomButton = styled.TouchableOpacity`
+export const CustomButton = styled.TouchableOpacity`
   background: transparent;
   border-width: 1px;
   border-radius: 50px;
@@ -10,7 +10,7 @@ export const BorderBottomButton = styled.TouchableOpacity`
   justify-content: center;
 `;
 
-export const BorderBottomText = styled.Text`
+export const ButtonText = styled.Text`
   font-family: ${({ theme }) => theme.fonts.medium};
   font-size: ${({ theme }) => theme.fontSizes.button};
   align-self: center;

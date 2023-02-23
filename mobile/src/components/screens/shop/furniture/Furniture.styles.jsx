@@ -5,7 +5,7 @@ export const FurnitureFlatList = styled(FlatList)`
   background: ${({ theme }) => theme.colors.secondary};
 `;
 
-export const FurnitureStyles = styled.View`
+export const FurnitureStyles = styled.TouchableOpacity`
   flex: 1;
 `;
 

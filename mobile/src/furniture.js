@@ -1,4 +1,4 @@
-const furniture = [
+const furnitures = [
   {
     id: 1,
     name: "Trenton Modular Sofa",
@@ -209,4 +209,4 @@ const furniture = [
   },
 ];
 
-export default furniture;
+export default furnitures;

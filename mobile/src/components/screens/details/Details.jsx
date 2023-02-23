@@ -1,20 +1,23 @@
 import { FurnitureFlatList } from "../shop/furniture/Furniture.styles";
 import Furniture from "../shop/furniture/Furniture.component";
 
+import Purchase from "./purchase/Purchase.component";
+import Description from "./description/Description.component";
+
 import furnitures from "../../../furniture";
 
-import Hero from "./hero/Hero.component";
-import Popular from "./popular/Popular.component";
-
-function Home() {
- 
+function FurnitureDetails({ route }) {
+  const { furnitureId } = route.params;
+  const furniture = furnitures.find(
+    (furniture) => furniture.id === furnitureId
+  );
 
   return (
     <FurnitureFlatList
       ListHeaderComponent={
         <>
-          <Hero />
-          <Popular />
+          <Purchase furniture={furniture} />
+          <Description furniture={furniture} />
         </>
       }
       data={furnitures}
@@ -33,4 +36,4 @@ function Home() {
   );
 }
 
-export default Home;
+export default FurnitureDetails;
