@@ -1,9 +1,21 @@
-import furnitures from "../../../furniture";
-import Furniture from "./furniture/Furniture.component";
+import { useLayoutEffect, useState } from "react";
+
 import { FurnitureFlatList } from "./furniture/Furniture.styles";
+import Furniture from "./furniture/Furniture.component";
+
+import axios from "axios";
+import API from "../../../api/api";
 
 function Furnitures() {
-  
+  const [furnitures, setFurnitures] = useState([]);
+
+  useLayoutEffect(() => {
+    async function fetchFurnitures() {
+      const { data } = await axios.get(API.furniture.shop)
+      setFurnitures(data)
+    }
+    fetchFurnitures()
+  }, []);
 
   return (
     <FurnitureFlatList
@@ -24,4 +36,3 @@ function Furnitures() {
 }
 
 export default Furnitures;
-
