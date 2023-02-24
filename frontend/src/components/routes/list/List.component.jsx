@@ -1,4 +1,6 @@
-import { Link } from "react-router-dom"
+import { useEffect, useState } from "react";
+
+import { Link } from "react-router-dom";
 
 import {
   FurnitureListStyles,
@@ -7,21 +9,36 @@ import {
   FurnitureText,
   FurnitureNamePrice,
 } from "./List.styles";
-import furnitures from "../../../furniture";
 import Rating from "../../rating/Rating.component";
 
+import axios from "axios";
+
+import API, { routeURL } from "../../../api/api";
+
 function FurnitureList() {
+  const [furnitures, setFuritures] = useState([]);
+
+  useEffect(() => {
+    async function fetchFurnitures() {
+      const { data } = await axios.get(API.furniture.shop);
+      setFuritures(data);
+    }
+
+    fetchFurnitures();
+
+  }, []);
+
   return (
     <FurnitureListStyles>
       {furnitures.map((furniture) => (
         <FurnitureCard key={furniture.id}>
-          <Link to={`/shop/furniture/${furniture.id}`}>
-              <FurnitureImg src={furniture.image} />
-              <FurnitureText>
-                <FurnitureNamePrice>{furniture.name}</FurnitureNamePrice>
-                <FurnitureNamePrice price>${furniture.price}</FurnitureNamePrice>
-              </FurnitureText>
-              <Rating rating={furniture.rating} margin />
+          <Link to={routeURL.furniture.details(furniture.id)}>
+            <FurnitureImg src={furniture.image} />
+            <FurnitureText>
+              <FurnitureNamePrice>{furniture.name}</FurnitureNamePrice>
+              <FurnitureNamePrice price>${furniture.price}</FurnitureNamePrice>
+            </FurnitureText>
+            <Rating rating={furniture.rating} margin />
           </Link>
         </FurnitureCard>
       ))}
