@@ -16,12 +16,14 @@ import {
   ButtonText,
 } from "../../../buttons/Buttons";
 
-function Purchase({ furniture: { name, price, rating } }) {
+import { baseURL } from "../../../../api/api";
+
+function Purchase({ furniture: { name, image, price, rating } }) {
   return (
     <DetailsStyles>
       <ImgAndPurchase>
         <ImgBg large>
-          <Img large />
+          <Img large source={{ uri: baseURL + image }} />
         </ImgBg>
         <InfoAndCartButton>
           <Info name>{name}</Info>
@@ -39,16 +41,16 @@ function Purchase({ furniture: { name, price, rating } }) {
       </ImgAndPurchase>
       <ImgSmallContainer>
         <ImgBg small>
-          <Img small />
+          <Img small source={{ uri: baseURL + image }} />
         </ImgBg>
         <ImgBg small>
-          <Img small />
+          <Img small source={{ uri: baseURL + image }} />
         </ImgBg>
         <ImgBg small>
-          <Img small />
+          <Img small source={{ uri: baseURL + image }} />
         </ImgBg>
         <ImgBg small>
-          <Img small />
+          <Img small source={{ uri: baseURL + image }} />
         </ImgBg>
       </ImgSmallContainer>
     </DetailsStyles>

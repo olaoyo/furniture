@@ -31,8 +31,8 @@ function FurnitureList() {
   return (
     <FurnitureListStyles>
       {furnitures.map((furniture) => (
-        <FurnitureCard key={furniture.id}>
-          <Link to={routeURL.furniture.details(furniture.id)}>
+        <FurnitureCard key={furniture._id}>
+          <Link to={routeURL.furniture.details(furniture._id)}>
             <FurnitureImg src={furniture.image} />
             <FurnitureText>
               <FurnitureNamePrice>{furniture.name}</FurnitureNamePrice>

@@ -10,9 +10,11 @@ import {
 
 import Rating from "../../../rating/Rating.component";
 
+import { baseURL } from "../../../../api/api";
+
 function Furniture({ id, image, name, price, rating }) {
   const navigation = useNavigation();
-
+ 
   const furnitureDetailsHandler = () => {
     navigation.navigate("Details", { furnitureId: id });
   };
@@ -20,7 +22,7 @@ function Furniture({ id, image, name, price, rating }) {
   return (
     <FurnitureStyles onPress={furnitureDetailsHandler} activeOpacity={0.5}>
       <FurnitureGrid>
-        <FurnitureImage source={image} />
+        <FurnitureImage source={{uri: baseURL + image}} />
         <FurnitureTitle>{name}</FurnitureTitle>
         <FurniturePrice>${price}</FurniturePrice>
         <Rating rating={rating} />

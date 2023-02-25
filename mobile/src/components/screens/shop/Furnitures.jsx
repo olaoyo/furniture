@@ -20,11 +20,11 @@ function Furnitures() {
   return (
     <FurnitureFlatList
       data={furnitures}
-      keyExtractor={(furniture) => furniture.id}
+      keyExtractor={(furniture) => furniture._id}
       numColumns={2}
       renderItem={({ item }) => (
         <Furniture
-          id={item.id}
+          id={item._id}
           image={item.image}
           name={item.name}
           price={item.price}

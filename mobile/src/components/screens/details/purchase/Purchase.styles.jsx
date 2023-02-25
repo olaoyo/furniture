@@ -8,6 +8,7 @@ export const ImgAndPurchase = styled.View`
 
 export const ImgBg = styled.View`
 border-radius: 5px;
+align-items: center;
   ${({ large, small }) =>
     large
       ? css`

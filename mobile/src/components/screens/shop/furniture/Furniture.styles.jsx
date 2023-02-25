@@ -11,11 +11,12 @@ export const FurnitureStyles = styled.TouchableOpacity`
 
 export const FurnitureGrid = styled.View`
   margin: 30px;
+  align-items: center;
 `;
 
 export const FurnitureImage = styled.Image`
-  width: 100px;
-  height: 100px;
+  width: 113px;
+  height: 91px;
   margin-bottom: 10px;
 `;
 
