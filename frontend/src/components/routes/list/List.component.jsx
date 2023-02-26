@@ -1,6 +1,8 @@
-import { useEffect, useState } from "react";
-
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+
+import { listFurnitures } from "../../../redux/actions/furnitureActions";
 
 import {
   FurnitureListStyles,
@@ -9,39 +11,49 @@ import {
   FurnitureText,
   FurnitureNamePrice,
 } from "./List.styles";
+
+import Loading from "../../loading/Loading.component";
+import Message from "../../message/Message.component";
 import Rating from "../../rating/Rating.component";
 
-import axios from "axios";
-
-import API, { routeURL } from "../../../api/api";
+import { routeURL } from "../../../api/api";
 
 function FurnitureList() {
-  const [furnitures, setFuritures] = useState([]);
+  
+  const dispatch = useDispatch();
+
+  const { loading, furnitures, error } = useSelector(
+    (state) => state.furnitureList
+  );
 
   useEffect(() => {
-    async function fetchFurnitures() {
-      const { data } = await axios.get(API.furniture.shop);
-      setFuritures(data);
-    }
-
-    fetchFurnitures();
-
-  }, []);
+    dispatch(listFurnitures());
+  }, [dispatch]);
 
   return (
     <FurnitureListStyles>
-      {furnitures.map((furniture) => (
-        <FurnitureCard key={furniture._id}>
-          <Link to={routeURL.furniture.details(furniture._id)}>
-            <FurnitureImg src={furniture.image} />
-            <FurnitureText>
-              <FurnitureNamePrice>{furniture.name}</FurnitureNamePrice>
-              <FurnitureNamePrice price>${furniture.price}</FurnitureNamePrice>
-            </FurnitureText>
-            <Rating rating={furniture.rating} margin />
-          </Link>
-        </FurnitureCard>
-      ))}
+      {loading ? (
+        <Loading />
+      ) : error ? (
+        <Message>{error}</Message>
+      ) : (
+        <>
+          {furnitures.map((furniture) => (
+            <FurnitureCard key={furniture._id}>
+              <Link to={routeURL.furniture.details(furniture._id)}>
+                <FurnitureImg src={furniture.image} />
+                <FurnitureText>
+                  <FurnitureNamePrice>{furniture.name}</FurnitureNamePrice>
+                  <FurnitureNamePrice price>
+                    ${furniture.price}
+                  </FurnitureNamePrice>
+                </FurnitureText>
+                <Rating rating={furniture.rating} margin />
+              </Link>
+            </FurnitureCard>
+          ))}
+        </>
+      )}
     </FurnitureListStyles>
   );
 }
