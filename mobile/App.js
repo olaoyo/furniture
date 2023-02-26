@@ -9,6 +9,9 @@ import {
 
 import { NavigationContainer } from "@react-navigation/native";
 
+import { Provider } from "react-redux";
+import store from "./src/redux/store/store";
+
 import { ThemeProvider } from "styled-components/native";
 import { theme } from "./src/themes/themes";
 
@@ -35,13 +38,15 @@ export default function App() {
   return (
     <>
       <StatusBar style="dark" backgroundColor={theme.colors.primary} />
-      <ThemeProvider theme={theme}>
-        {Platform.OS === "android" ? <SafeAreaAndroid /> : <SafeAreaiOS />}
-        <Search />
-        <NavigationContainer>
-          <StackNavigation />
-        </NavigationContainer>
-      </ThemeProvider>
+      <Provider store={store}>
+        <ThemeProvider theme={theme}>
+          {Platform.OS === "android" ? <SafeAreaAndroid /> : <SafeAreaiOS />}
+          <Search />
+          <NavigationContainer>
+            <StackNavigation />
+          </NavigationContainer>
+        </ThemeProvider>
+      </Provider>
     </>
   );
 }
