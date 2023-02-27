@@ -31,13 +31,13 @@ function FurnitureList() {
   }, [dispatch]);
 
   return (
-    <FurnitureListStyles>
+    <>
       {loading ? (
         <Loading />
       ) : error ? (
         <Message>{error}</Message>
       ) : (
-        <>
+        <FurnitureListStyles>
           {furnitures.map((furniture) => (
             <FurnitureCard key={furniture._id}>
               <Link to={routeURL.furniture.details(furniture._id)}>
@@ -52,9 +52,9 @@ function FurnitureList() {
               </Link>
             </FurnitureCard>
           ))}
-        </>
+        </FurnitureListStyles>
       )}
-    </FurnitureListStyles>
+    </>
   );
 }
 

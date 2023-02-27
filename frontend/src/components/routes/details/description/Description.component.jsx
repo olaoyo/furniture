@@ -6,23 +6,31 @@ import {
   FurnitureImg,
 } from "./Description.styles";
 
-function Description({ furniture }) {
-  return (
-    <DescriptionStyles>
-      <Paragraph p1>Description</Paragraph>
-      <Paragraph grey>{furniture.description}</Paragraph>
-      <Furniture>
-        
-        <FurnitureCard>
-          <FurnitureImg src={furniture.image} />
-        </FurnitureCard>
+import Loading from "../../../loading/Loading.component";
+import Message from "../../../message/Message.component";
 
-        <FurnitureCard>
-          <FurnitureImg src={furniture.image} />
-        </FurnitureCard>
-        
-      </Furniture>
-    </DescriptionStyles>
+function Description({ loading, furniture, error }) {
+  return (
+    <>
+      {loading ? (
+        <Loading />
+      ) : error ? (
+        <Message>{error}</Message>
+      ) : (
+        <DescriptionStyles>
+          <Paragraph p1>Description</Paragraph>
+          <Paragraph grey>{furniture.description}</Paragraph>
+          <Furniture>
+            <FurnitureCard>
+              <FurnitureImg src={furniture.image} />
+            </FurnitureCard>
+            <FurnitureCard>
+              <FurnitureImg src={furniture.image} />
+            </FurnitureCard>
+          </Furniture>
+        </DescriptionStyles>
+      )}
+    </>
   );
 }
 

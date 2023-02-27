@@ -11,10 +11,14 @@ const spinner = keyframes`
 `;
 
 export const LoadingStyles = styled.div`
+  grid-column: left-start / right-end;
+  grid-template-columns: 1fr;
   display: grid;
   grid-template-rows: repeat(2, max-content);
   row-gap: 2rem;
   padding-top: 10rem;
+  justify-items: center;
+  align-items: center;
 `;
 
 export const LoadingSpinner = styled.div`

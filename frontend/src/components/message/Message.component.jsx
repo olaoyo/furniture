@@ -1,8 +1,10 @@
-import { MessageText } from "./Message.styles";
+import { MessageStyles, MessageText } from "./Message.styles";
 
 function Message({ children }) {
   return (
-       <MessageText>{children}</MessageText>    
+       <MessageStyles>
+         <MessageText>{children}</MessageText>  
+       </MessageStyles>  
   )
 }
 

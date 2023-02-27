@@ -6,7 +6,7 @@ import {
   DetailsNavButton,
 } from "./DetailsNav.styles";
 
-function DetailsNav({ home, shop, furniture }) {
+function DetailsNav({ home, shop, furniture, error }) {
   return (
     <DetailsNavStyles>
       <DetailsParagraphs>
@@ -26,7 +26,11 @@ function DetailsNav({ home, shop, furniture }) {
       </DetailsNavArrowActive>
 
       <DetailsNavButton>
-        <DetailsParagraphs black>{furniture.name}</DetailsParagraphs>
+        {error ? (
+          <DetailsParagraphs>{error}</DetailsParagraphs>
+        ) : (
+          <DetailsParagraphs black>{furniture.name}</DetailsParagraphs>
+        )}
       </DetailsNavButton>
     </DetailsNavStyles>
   );
