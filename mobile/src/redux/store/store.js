@@ -2,10 +2,11 @@ import { createStore, combineReducers, applyMiddleware } from "redux";
 import thunk from "redux-thunk";
 import { composeWithDevTools } from "redux-devtools-extension";
 
-import { furnitureListReducers } from "../reducers/furnitureReducers";
+import { furnitureListReducers, furnitureDetailsReducer } from "../reducers/furnitureReducers";
 
 const reducer = combineReducers({
-    furnitureList: furnitureListReducers
+    furnitureList: furnitureListReducers,
+    furnitureDetails: furnitureDetailsReducer,
 });
 
 const initialState = {};

@@ -1,12 +1,22 @@
-import { DescriptionStyles, DescriptionInfo } from "./Description.styles"
+import { ActivityIndicator } from "react-native";
 
+import Message from "../../../message/Message.component";
+import { theme } from "../../../../themes/themes";
 
-function Description({ furniture: { description } }) {
+import { DescriptionStyles, DescriptionInfo } from "./Description.styles";
+
+function Description({ loading, furniture: { description }, error }) {
   return (
     <DescriptionStyles>
-      <DescriptionInfo>{description}</DescriptionInfo>  
+      {loading ? (
+        <ActivityIndicator size="large" color={theme.colors.yellow} />
+      ) : error ? (
+        <Message>{error}</Message>
+      ) : (
+        <DescriptionInfo>{description}</DescriptionInfo>
+      )}
     </DescriptionStyles>
-  )
+  );
 }
 
-export default Description
+export default Description;

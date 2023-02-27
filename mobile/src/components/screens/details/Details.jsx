@@ -1,8 +1,9 @@
-import { useLayoutEffect, useState } from "react";
-import { ActivityIndicator } from "react-native";
+import { useLayoutEffect } from "react";
 import { useDispatch, useSelector } from "react-redux"; 
 
-import { listFurnitures } from "../../../redux/actions/furnitureActions";
+import { ActivityIndicator } from "react-native";
+
+import { listFurnitures, detailFurniture } from "../../../redux/actions/furnitureActions";
 
 import { FurnitureFlatList } from "../shop/furniture/Furniture.styles";
 import Furniture from "../shop/furniture/Furniture.component";
@@ -13,30 +14,24 @@ import { theme } from "../../../themes/themes";
 import Purchase from "./purchase/Purchase.component";
 import Description from "./description/Description.component";
 
-import axios from "axios";
-import API from "../../../api/api";
 
 
 function Details({ route }) {
-  const [furniture, setFurniture] = useState({});
 
   const dispatch = useDispatch();
 
   const { loading, furnitures, error } = useSelector((state) => state.furnitureList);
+  const { loading: loadingFurniture, furniture, error: errorLoading } = useSelector((state) => state.furnitureDetails);
 
   const { furnitureId } = route.params;
 
+  
   // Fetch single furniture with id
   useLayoutEffect(() => {
-    async function fetchFurniture() {
-      const { data } = await axios.get(API.furniture.details(furnitureId));
-      setFurniture(data);
-    }
+    dispatch(detailFurniture(furnitureId))
+  }, [dispatch, furnitureId]);
 
-    fetchFurniture();
-
-  }, [furnitureId]);
-
+  
   // Fetch all furniture needed in <FurnitureFlatList />
   useLayoutEffect(() => {
     dispatch(listFurnitures());
@@ -46,8 +41,8 @@ function Details({ route }) {
     <FurnitureFlatList
       ListHeaderComponent={
         <>
-          <Purchase furniture={furniture} />
-          <Description furniture={furniture} />
+          <Purchase loading={loadingFurniture} furniture={furniture} error={errorLoading} />
+          <Description loading={loadingFurniture} furniture={furniture} error={errorLoading} />
         </>
       }
       data={furnitures}
