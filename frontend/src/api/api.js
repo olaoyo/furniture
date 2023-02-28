@@ -12,6 +12,9 @@ const API = {
     shop: `${apiURL}/furniture/`,
     details: (id) => `${apiURL}/furniture/${id}/`,
   },
+
+  cart: `/cart`,
+  addToCart: (qty, id) => `/cart/${id}/qty?=${qty}`,
 };
 
 export default API;

@@ -29,7 +29,7 @@ function Details() {
   return (
     <>
       <DetailsNav home="Home" shop="Shop" furniture={furniture} error={error} />
-      <Purchase loading={loading} furniture={furniture} error={error} />
+      <Purchase loading={loading} furniture={furniture} error={error} furnitureId={furnitureId} />
       <Description loading={loading} furniture={furniture} error={error} />
       <Related />
       <FurnitureList />

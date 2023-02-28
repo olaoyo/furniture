@@ -1,3 +1,5 @@
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import {
   PurchaseStyles,
   ImgSmallGrid,
@@ -6,9 +8,7 @@ import {
   ImgBig,
   DetailsGrid,
   DetailsHeader,
-  DetailsP1P2,
-  DetailsP3P5,
-  DetailsP6,
+  Details,
   Reviews,
   RatingGrid,
   ReviewsButton,
@@ -16,8 +16,7 @@ import {
   SizeAndColorGrid,
   SizeAndColor,
   SizeBg,
-  ColorBg1,
-  ColorBg2,
+  ColorBg,
   QtyAddToCart,
   Qty,
   AddRemove,
@@ -32,7 +31,29 @@ import { AddToCartButton } from "../../../buttons/Buttons";
 import Loading from "../../../loading/Loading.component";
 import Message from "../../../message/Message.component";
 
-function Purchase({ loading, furniture, error }) {
+import { routeURL } from "../../../../api/api";
+
+function Purchase({ loading, furniture, error, furnitureId }) {
+  const [qty, setQty] = useState(1);
+
+  const navigate = useNavigate();
+
+  const addFurniture = () => {
+    setQty(qty + 1);
+  };
+
+  const removeFurniture = () => {
+    setQty(qty > 1 ? qty - 1 : qty);
+  };
+
+  const onChangeHandler = (event) => {
+    setQty(event.target.value);
+  };
+
+  const addToCartHandler = () => {
+    navigate(routeURL.addToCart(furnitureId, qty));
+  };
+
   return (
     <>
       {loading ? (
@@ -52,75 +73,100 @@ function Purchase({ loading, furniture, error }) {
           </ImgBigGrid>
           <DetailsGrid>
             <DetailsHeader>{furniture.name}</DetailsHeader>
-            <DetailsP1P2 p1 grey>
+            <Details p1 grey>
               ${furniture.price}
-            </DetailsP1P2>
+            </Details>
             <Reviews>
               <RatingGrid>
                 <Rating rating={furniture.rating} />
               </RatingGrid>
               <ReviewsButton>
-                <DetailsP6 p6 grey>
+                <Details p6 grey>
                   {furniture.numReviews} Customer Reviews
-                </DetailsP6>
+                </Details>
               </ReviewsButton>
             </Reviews>
             <Description>
-              <DetailsP6>{furniture.description}</DetailsP6>
+              <Details p7>{furniture.description}</Details>
             </Description>
             <SizeAndColorGrid>
-              <DetailsP3P5 grey>Size</DetailsP3P5>
+              <Details grey>Size</Details>
               <SizeAndColor>
                 <SizeBg selected>
-                  <DetailsP6>L</DetailsP6>
+                  <Details>L</Details>
                 </SizeBg>
                 <SizeBg>
-                  <DetailsP6>XL</DetailsP6>
+                  <Details>XL</Details>
                 </SizeBg>
                 <SizeBg>
-                  <DetailsP6>XS</DetailsP6>
+                  <Details>XS</Details>
                 </SizeBg>
               </SizeAndColor>
-              <DetailsP3P5 grey>Color</DetailsP3P5>
+              <Details grey>Color</Details>
               <SizeAndColor>
-                <ColorBg1 purple />
-                <ColorBg1 />
-                <ColorBg2 />
+                <ColorBg purple />
+                <ColorBg black />
+                <ColorBg gold />
               </SizeAndColor>
             </SizeAndColorGrid>
             <QtyAddToCart>
-              <Qty>
-                <AddRemove>
-                  <span className="material-symbols-outlined">remove</span>
-                </AddRemove>
-                <DetailsP3P5 p3>1</DetailsP3P5>
-                <AddRemove>
-                  <span className="material-symbols-outlined">add</span>
-                </AddRemove>
-              </Qty>
-              <AddToCartButton>Add To Cart</AddToCartButton>
+              {furniture.countInStock > 0 ? (
+                <>
+                  <Qty>
+                    <AddRemove onClick={removeFurniture}>
+                      <span className="material-symbols-outlined">remove</span>
+                    </AddRemove>
+                    <Details p3 value={qty} onChange={onChangeHandler}>
+                      {qty}
+                    </Details>
+                    <AddRemove onClick={addFurniture}>
+                      <span className="material-symbols-outlined">add</span>
+                    </AddRemove>
+                  </Qty>
+                  <AddToCartButton onClick={addToCartHandler}>
+                    Add To Cart
+                  </AddToCartButton>
+                </>
+              ) : (
+                <>
+                  <Qty>
+                    <AddRemove onClick={removeFurniture} nohover>
+                      <span className="material-symbols-outlined">sentiment_dissatisfied</span>
+                    </AddRemove>
+                    <Details p3 value={qty} onChange={onChangeHandler}>
+                      {furniture.countInStock}
+                    </Details>
+                    <AddRemove onClick={addFurniture} nohover>
+                      <span className="material-symbols-outlined">sentiment_very_dissatisfied</span>
+                    </AddRemove>
+                  </Qty>
+                  <AddToCartButton onClick={addToCartHandler} disabled nohover>
+                    Out of Stock
+                  </AddToCartButton>
+                </>
+              )}
             </QtyAddToCart>
             <Tags>
               <Tag>
-                <DetailsP3P5 grey>SKL</DetailsP3P5>
-                <DetailsP3P5 grey ml>
+                <Details grey>SKL</Details>
+                <Details grey ml>
                   : SS001
-                </DetailsP3P5>
+                </Details>
               </Tag>
               <Tag>
-                <DetailsP3P5 grey>Category</DetailsP3P5>
-                <DetailsP3P5 grey ml>
+                <Details grey>Category</Details>
+                <Details grey ml>
                   : Sofas
-                </DetailsP3P5>
+                </Details>
               </Tag>
               <Tag>
-                <DetailsP3P5 grey>Tags</DetailsP3P5>
-                <DetailsP3P5 grey ml>
+                <Details grey>Tags</Details>
+                <Details grey ml>
                   : {furniture.category}
-                </DetailsP3P5>
+                </Details>
               </Tag>
               <Tag>
-                <DetailsP3P5 grey>Share</DetailsP3P5>
+                <Details grey>Share</Details>
                 <SocialMedia grey ml>
                   :
                   <Social>

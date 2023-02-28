@@ -62,7 +62,7 @@ export const DetailsHeader = styled.h4`
   margin-bottom: -1rem;
 `;
 
-export const DetailsP1P2 = styled.p`
+export const Details = styled.p`
   ${({ grey }) =>
     grey
       ? css`
@@ -71,62 +71,38 @@ export const DetailsP1P2 = styled.p`
       : css`
           color: ${({ theme }) => theme.colors.black};
         `};
-
-  ${({ p1 }) =>
+  ${({ p1, p2, p3, p5, p6, p7 }) =>
     p1
       ? css`
           font-size: ${({ theme }) => theme.fontSizes.paragraphs.p1};
         `
-      : css`
-          font-size: ${({ theme }) => theme.fontSizes.paragraphs.p2};
-        `}
-`;
-
-export const DetailsP3P5 = styled.p`
-  ${({ grey }) =>
-    grey
+      : p2
       ? css`
-          color: ${({ theme }) => theme.colors.grey.one};
+          font-size: ${({ theme }) => theme.fontSizes.paragraphs.p2};
         `
-      : css`
-          color: ${({ theme }) => theme.colors.black};
-        `};
-
-  ${({ p3 }) =>
-    p3
+      : p3
       ? css`
           font-size: ${({ theme }) => theme.fontSizes.paragraphs.p3};
         `
-      : css`
+      : p5
+      ? css`
           font-size: ${({ theme }) => theme.fontSizes.paragraphs.p5};
-        `}
-
+        `
+      : p6
+      ? css`
+          font-size: ${({ theme }) => theme.fontSizes.paragraphs.p6};
+        `
+      : p7
+      ? css`
+          font-size: ${({ theme }) => theme.fontSizes.paragraphs.p7};
+        `
+      : css``}
   ${({ ml }) =>
     ml
       ? css`
           margin-left: -2rem;
         `
       : css``}
-`;
-
-export const DetailsP6 = styled.p`
-  ${({ grey }) =>
-    grey
-      ? css`
-          color: ${({ theme }) => theme.colors.grey.one};
-        `
-      : css`
-          color: ${({ theme }) => theme.colors.black};
-        `};
-
-  ${({ p6 }) =>
-    p6
-      ? css`
-          font-size: ${({ theme }) => theme.fontSizes.paragraphs.p6};
-        `
-      : css`
-          font-size: ${({ theme }) => theme.fontSizes.paragraphs.p7};
-        `}
 `;
 
 export const Reviews = styled.div`
@@ -162,7 +138,7 @@ export const Description = styled.div`
 export const SizeAndColorGrid = styled.div`
   display: grid;
   grid-template-rows: repeat(4, max-content);
-  margin-top: .5rem;
+  margin-top: 0.5rem;
   row-gap: 1.3rem;
 `;
 
@@ -192,30 +168,27 @@ export const SizeBg = styled.div`
         `}
 `;
 
-export const ColorBg1 = styled.div`
+export const ColorBg = styled.div`
   width: 3rem;
   height: 3rem;
   border-radius: 50px;
   justify-items: center;
   align-items: center;
 
-  ${({ purple }) =>
+  ${({ purple, black, gold }) =>
     purple
       ? css`
           background: ${({ theme }) => theme.colors.purple};
         `
-      : css`
+      : black
+      ? css`
           background: ${({ theme }) => theme.colors.black};
-        `}
-`;
-
-export const ColorBg2 = styled.div`
-  width: 3rem;
-  height: 3rem;
-  border-radius: 50px;
-  justify-items: center;
-  align-items: center;
-  background: ${({ theme }) => theme.colors.gold.one};
+        `
+      : gold
+      ? css`
+          background: ${({ theme }) => theme.colors.gold.one};
+        `
+      : css``}
 `;
 
 export const QtyAddToCart = styled.div`
@@ -242,6 +215,19 @@ export const Qty = styled.div`
 export const AddRemove = styled.div`
   display: grid;
   grid-template-columns: 1, max-content;
+  transition: all 0.2s;
+
+  ${({ nohover }) =>
+    nohover
+      ? css``
+      : css`
+          :hover {
+            cursor: pointer;
+          }
+          :active {
+            transform: scale(0.8);
+          }
+        `}
 `;
 
 export const Tags = styled.div`

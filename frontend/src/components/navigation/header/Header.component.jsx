@@ -12,13 +12,14 @@ import {
 import Search from "../../inputs/search/Search.component";
 import { LoginButton } from "../../buttons/Buttons";
 import MeubelHouseLogo from "./img/MeubelHouseLogo.png";
+import { routeURL } from "../../../api/api";
 
 function Header() {
   return (
     <>
       <HeaderStyles>
         <LogoGrid>
-          <Link to="/">
+          <Link to={routeURL.furniture.home}>
             <Logo src={MeubelHouseLogo} />
           </Link>
         </LogoGrid>
@@ -26,7 +27,7 @@ function Header() {
         <Search />
 
         <Menu>
-          <Link to="/shop">
+          <Link to={routeURL.furniture.shop}>
             <MenuItem>Shop</MenuItem>
           </Link>
           <MenuItem>Admin</MenuItem>
@@ -34,7 +35,7 @@ function Header() {
         </Menu>
 
         <Cart>
-          <span className="material-symbols-outlined">shopping_cart</span>
+          <Link to={routeURL.cart}><span className="material-symbols-outlined">shopping_cart</span></Link>
         </Cart>
 
         <ProfileOuter>

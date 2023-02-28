@@ -9,7 +9,7 @@ import shopBanner from "./img/shopBanner.jpg";
 import Logo from "../logo/Logo.component";
 import HomeNav from "../navigation/home/HomeNav.component";
 
-function Banner({ header }) {
+function Banner({ header, route }) {
   return (
     <BannerStyles>
       <BannerBox>
@@ -17,7 +17,7 @@ function Banner({ header }) {
         <BannerGrid>
           <Logo />
           <BannerHeader>{header}</BannerHeader>
-          <HomeNav route="Shop" />
+          <HomeNav route={route} />
         </BannerGrid>
       </BannerBox>
     </BannerStyles>

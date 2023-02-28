@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
 export const LoginButton = styled.button`
   grid-column: 11 / span 1;
@@ -82,4 +82,18 @@ export const AddToCartButton = styled.button`
   background: transparent;
   border: 1px solid ${({ theme }) => theme.colors.black};
   border-radius: 15px;
+  transition: all 0.2s;
+
+  ${({ nohover }) =>
+    nohover
+      ? css``
+      : css`
+          :hover {
+            cursor: pointer;
+            transform: translateY(-2px) scale(1.01);
+          }
+          :active {
+            transform: scale(1);
+          }
+        `}
 `;
