@@ -7,8 +7,8 @@ export const ImgAndPurchase = styled.View`
 `;
 
 export const ImgBg = styled.View`
-border-radius: 5px;
-align-items: center;
+  border-radius: 5px;
+  align-items: center;
   ${({ large, small }) =>
     large
       ? css`
@@ -22,7 +22,6 @@ align-items: center;
           background: ${({ theme }) => theme.colors.accents};
           width: 70px;
           height: 60px;
-          
         `
       : css``}
 `;
@@ -70,9 +69,9 @@ export const Info = styled.Text`
         `
       : qty
       ? css`
-          font-size: ${({ theme }) => theme.fontSizes.caption};
+          font-size: ${({ theme }) => theme.fontSizes.button};
           color: ${({ theme }) => theme.colors.black};
-          margin: 0 -30px 0 20px;
+          width: 25px;
         `
       : css``}
 `;
@@ -86,6 +85,36 @@ export const QtyAndAddToCart = styled.View`
   flex: 1;
   flex-direction: row;
   align-items: center;
+`;
+
+export const QtyButton = styled.View`
+  flex: 1;
+  flex-direction: row;
+  background: transparent;
+  border-width: 1px;
+  border-radius: 10px;
+  border-color: ${({ theme }) => theme.colors.black};
+  justify-content: space-around;
+  height: 40px;
+  margin-left: 15px;
+  justify-items: center;
+  align-items: center;
+
+  ${({ outOfStock }) =>
+    outOfStock
+      ? css`
+          border-color: ${({ theme }) => theme.colors.grey.one};
+        `
+      : css``}
+`;
+
+export const IconPress = styled.TouchableOpacity`
+  ${({ ml }) =>
+    ml
+      ? css`
+          margin-left: 10px;
+        `
+      : css``}
 `;
 
 export const ImgSmallContainer = styled.View`

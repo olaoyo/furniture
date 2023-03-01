@@ -1,10 +1,15 @@
-import React from 'react'
-import { Text } from 'react-native'
+import { Text } from "react-native";
 
-function Cart() {
+function Cart({ route }) {
+  
+  const { furnitureId, furnitureQty } = route.params;
+
   return (
-    <Text>Cart</Text>
-  )
+    <>
+      <Text>{furnitureId}</Text>
+      <Text>{furnitureQty}</Text>
+    </>
+  );
 }
 
-export default Cart
+export default Cart;
