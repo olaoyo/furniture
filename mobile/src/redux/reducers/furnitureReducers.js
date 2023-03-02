@@ -9,7 +9,7 @@ import {
 } from "../constants/furnitureConstants";
 
 
-export const furnitureListReducers = (state = { furnitures: [] }, action) => {
+export const furnitureListReducer = (state = { furnitures: [] }, action) => {
   switch (action.type) {
     case FURNITURE_LIST_REQUEST:
       return { loading: true, furnitures: [] };
