@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import {
   PurchaseStyles,
@@ -28,6 +29,8 @@ import {
 import Rating from "../../../rating/Rating.component";
 import { AddToCartButton } from "../../../buttons/Buttons";
 
+import { addFurnitureToCart } from "../../../../redux/actions/cartActions";
+
 import Loading from "../../../loading/Loading.component";
 import Message from "../../../message/Message.component";
 
@@ -35,6 +38,16 @@ import { routeURL } from "../../../../api/api";
 
 function Purchase({ loading, furniture, error, furnitureId }) {
   const [qty, setQty] = useState(1);
+
+  const dispatch = useDispatch();
+
+  const { cartItems } = useSelector((state) => state.cart);
+  
+  
+  // Check if furniture details qty is in cart and use qty instead of default of 1
+  const currentFurniture = cartItems.find((furniture) => furniture.id === +furnitureId)
+
+
 
   const navigate = useNavigate();
 
@@ -51,7 +64,9 @@ function Purchase({ loading, furniture, error, furnitureId }) {
   };
 
   const addToCartHandler = () => {
-    navigate(routeURL.addToCart(furnitureId, qty));
+    dispatch(addFurnitureToCart(furnitureId, qty))
+    navigate(routeURL.cart)
+    // navigate(routeURL.addToCart(furnitureId, qty));
   };
 
   return (
@@ -63,10 +78,10 @@ function Purchase({ loading, furniture, error, furnitureId }) {
       ) : (
         <PurchaseStyles>
           <ImgSmallGrid>
-            <ImgSmall src={furniture.image} />
-            <ImgSmall src={furniture.image} />
-            <ImgSmall src={furniture.image} />
-            <ImgSmall src={furniture.image} />
+            <ImgSmall src={furniture.image} alt={furniture.name} />
+            <ImgSmall src={furniture.image} alt={furniture.name} />
+            <ImgSmall src={furniture.image} alt={furniture.name} />
+            <ImgSmall src={furniture.image} alt={furniture.name} />
           </ImgSmallGrid>
           <ImgBigGrid>
             <ImgBig src={furniture.image} />

@@ -6,7 +6,7 @@ import Info from "./info/Info.component";
 function Shop() {
   return (
     <>
-      <Banner header="Shop" />
+      <Banner header="Shop" route="Shop" />
       <Furniture />
       <FurnitureList />
       <Info />
