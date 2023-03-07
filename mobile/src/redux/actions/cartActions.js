@@ -1,15 +1,15 @@
 import axios from "axios";
 import API from "../../api/api";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 
 import {
   CART_ADD_FURNITURE,
   CART_REMOVE_FURNITURE,
 } from "../constants/cartConstants";
-
-export const addFurnitureToCart = (furnitureId, qty) => async (dispatch, getState) => {
+ 
+export const addFurnitureToCart = (furnitureId, qty) => async (dispatch) => {
+  
     const { data } = await axios.get(API.furniture.details(furnitureId));
-
+    
     dispatch({
       type: CART_ADD_FURNITURE,
       payload: {
@@ -21,6 +21,4 @@ export const addFurnitureToCart = (furnitureId, qty) => async (dispatch, getStat
         qty,
       },
     });
-
-    AsyncStorage.setItem("cartItems", JSON.stringify(getState(state.cartItems)));
   };

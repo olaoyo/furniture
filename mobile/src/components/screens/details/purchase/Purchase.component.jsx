@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigation } from "@react-navigation/native";
 import { ActivityIndicator } from "react-native";
 
@@ -23,11 +24,22 @@ import {
 
 import Rating from "../../../rating/Rating.component";
 
+import { addFurnitureToCart } from "../../../../redux/actions/cartActions";
+
 import { baseURL } from "../../../../api/api";
 
 function Purchase({ loading, furniture: { _id, name, image, price, rating, countInStock }, error }) {
 
   const [qty, setQty] = useState(1);
+
+  const dispatch = useDispatch();
+
+  const { cartItems } = useSelector((state) => state.cart);
+
+
+  // Check if furniture details qty is in cart and use qty instead of default of 1
+  // const currentFurniture = cartItems.find((furniture) => furniture.id === _id)
+
 
   const { navigate } = useNavigation();
 
@@ -44,6 +56,7 @@ function Purchase({ loading, furniture: { _id, name, image, price, rating, count
   };
 
   const addToCartHandler = () => {
+    dispatch(addFurnitureToCart(_id, qty));
     navigate("Cart", { furnitureId: _id, furnitureQty: qty });
   };
 

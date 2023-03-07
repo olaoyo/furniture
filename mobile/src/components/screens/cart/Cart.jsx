@@ -1,13 +1,12 @@
-import { Text } from "react-native";
+import CartDetails from "./cart/CartDetails.component";
+
 
 function Cart({ route }) {
-  
   const { furnitureId, furnitureQty } = route.params;
 
   return (
     <>
-      <Text>{furnitureId}</Text>
-      <Text>{furnitureQty}</Text>
+      <CartDetails furnitureId={furnitureId} furnitureQty={furnitureQty} />
     </>
   );
 }

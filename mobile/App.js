@@ -2,15 +2,13 @@ import { StatusBar } from "expo-status-bar";
 import { Platform } from "react-native";
 import Search from "./src/components/inputs/search/Search.component";
 
-import {
-  SafeAreaiOS,
-  SafeAreaAndroid,
-} from "./src/components/utils/SafeArea.styles";
+import { SafeAreaiOS, SafeAreaAndroid } from "./src/components/utils/SafeArea.styles";
 
 import { NavigationContainer } from "@react-navigation/native";
 
 import { Provider } from "react-redux";
-import store from "./src/redux/store/store";
+import { PersistGate } from "redux-persist/integration/react";
+import { store, persistor } from "./src/redux/store/store";
 
 import { ThemeProvider } from "styled-components/native";
 import { theme } from "./src/themes/themes";
@@ -39,14 +37,17 @@ export default function App() {
     <>
       <StatusBar style="dark" backgroundColor={theme.colors.primary} />
       <Provider store={store}>
-        <ThemeProvider theme={theme}>
-          {Platform.OS === "android" ? <SafeAreaAndroid /> : <SafeAreaiOS />}
-          <Search />
-          <NavigationContainer>
-            <StackNavigation />
-          </NavigationContainer>
-        </ThemeProvider>
+        <PersistGate loading={null} persistor={persistor}>
+          <ThemeProvider theme={theme}>
+            {Platform.OS === "android" ? <SafeAreaAndroid /> : <SafeAreaiOS />}
+            <Search />
+            <NavigationContainer>
+              <StackNavigation />
+            </NavigationContainer>
+          </ThemeProvider>
+        </PersistGate>
       </Provider>
     </>
   );
 }
+

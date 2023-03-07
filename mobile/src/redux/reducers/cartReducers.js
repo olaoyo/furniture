@@ -3,9 +3,11 @@ import {
   CART_REMOVE_FURNITURE,
 } from "../constants/cartConstants";
 
+
 export const cartReducer = (state = { cartItems: [] }, action) => {
   switch (action.type) {
     case CART_ADD_FURNITURE:
+
       const addedFurniture = action.payload;
 
       const furnitureInCart = state.cartItems.find(
@@ -16,15 +18,13 @@ export const cartReducer = (state = { cartItems: [] }, action) => {
         return {
           ...state,
           cartItems: state.cartItems.map((existingFurniture) =>
-            existingFurniture.id === addedFurniture.id
-              ? addedFurniture
-              : existingFurniture
+            existingFurniture.id === furnitureInCart.id ? addedFurniture : existingFurniture
           ),
         };
       } else {
         return {
           ...state,
-          cartItems: [...cartItems, addedFurniture],
+          cartItems: [...state.cartItems, addedFurniture],
         };
       }
 

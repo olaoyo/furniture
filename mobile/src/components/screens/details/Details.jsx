@@ -41,7 +41,7 @@ function Details({ route }) {
     <FurnitureFlatList
       ListHeaderComponent={
         <>
-          <Purchase loading={loadingFurniture} furniture={furniture} error={errorLoading} />
+          <Purchase loading={loadingFurniture} furniture={furniture} error={errorLoading} furnitureId={furnitureId} />
           <Description loading={loadingFurniture} furniture={furniture} error={errorLoading} />
         </>
       }
