@@ -18,6 +18,8 @@ export const theme = {
   
       gold: {
           one:   "#CDBA7B", 
+          two:   "#D9D9D9",
+          thr:   "#B88E2F",
       },
   
       grey: {

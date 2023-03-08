@@ -97,3 +97,22 @@ export const AddToCartButton = styled.button`
           }
         `}
 `;
+
+export const CheckOutButton = styled.button`
+  font-size: ${({ theme }) => theme.fontSizes.paragraphs.p2};
+  font-weight: ${({ theme }) => theme.fontWeights.regular};
+  color: ${({ theme }) => theme.colors.black};
+  width: 22.2rem;
+  height: 5.895rem;
+  background: transparent;
+  border: 1px solid ${({ theme }) => theme.colors.black};
+  border-radius: 15px;
+  transition: all 0.2s;
+  :hover {
+    cursor: pointer;
+    transform: translateY(-2px) scale(1.01);
+  }
+  :active {
+    transform: scale(1);
+  }
+`;
