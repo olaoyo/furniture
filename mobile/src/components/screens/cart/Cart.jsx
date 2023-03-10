@@ -1,12 +1,36 @@
+import { useSelector } from "react-redux";
+
+import Total from "./total/Total.component";
+import { CartFlatList } from "./cart/CartDetails.styles";
 import CartDetails from "./cart/CartDetails.component";
 
+import Message from "../../message/Message.component";
 
-function Cart({ route }) {
-  const { furnitureId, furnitureQty } = route.params;
+function Cart() {
+  const { cartItems } = useSelector((state) => state.cart);
 
   return (
     <>
-      <CartDetails furnitureId={furnitureId} furnitureQty={furnitureQty} />
+      {cartItems.length === 0 ? (
+        <Message>Your Cart Is Empty</Message>
+      ) : (
+        <>
+          <Total cartItems={cartItems} />
+          <CartFlatList
+            data={cartItems}
+            keyExtractor={cartItems.id}
+            renderItem={({ item }) => (
+              <CartDetails
+                id={item.id}
+                image={item.image}
+                name={item.name}
+                price={item.price}
+                qty={item.qty}
+              />
+            )}
+          />
+        </>
+      )}
     </>
   );
 }

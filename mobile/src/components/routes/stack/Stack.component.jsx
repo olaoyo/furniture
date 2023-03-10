@@ -2,6 +2,7 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
 import BottomTabs from "../tabs/BottomTabs.component";
 import Details from "../../screens/details/Details";
+import Checkout from "../../screens/chekout/Checkout";
 import { theme } from "../../../themes/themes";
 
 const { Navigator, Screen } = createNativeStackNavigator();
@@ -28,6 +29,14 @@ function StackNavigation() {
         component={Details}
         options={{
           title: "Furniture Details",
+        }}
+      />
+
+      <Screen
+        name="Checkout"
+        component={Checkout}
+        options={{
+          title: "Checkout",
         }}
       />
     </Navigator>

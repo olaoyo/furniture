@@ -28,6 +28,8 @@ import { addFurnitureToCart } from "../../../../redux/actions/cartActions";
 
 import { baseURL } from "../../../../api/api";
 
+import formatCurrency from "../../../../utils/formatCurrency";
+
 function Purchase({ loading, furniture: { _id, name, image, price, rating, countInStock }, error }) {
 
   const [qty, setQty] = useState(1);
@@ -57,8 +59,11 @@ function Purchase({ loading, furniture: { _id, name, image, price, rating, count
 
   const addToCartHandler = () => {
     dispatch(addFurnitureToCart(_id, qty));
-    navigate("Cart", { furnitureId: _id, furnitureQty: qty });
+    navigate("Cart");
+    // navigate("Cart", { furnitureId: _id, furnitureQty: qty });
   };
+
+  const priceFormatted = formatCurrency(price);
 
   return (
     <DetailsStyles>
@@ -74,7 +79,7 @@ function Purchase({ loading, furniture: { _id, name, image, price, rating, count
             </ImgBg>
             <InfoAndCartButton>
               <Info name>{name}</Info>
-              <Info price>${price}</Info>
+              <Info price>{priceFormatted}</Info>
               <RatingContainer>
                 <Rating rating={rating} />
               </RatingContainer>
@@ -103,7 +108,7 @@ function Purchase({ loading, furniture: { _id, name, image, price, rating, count
                 </QtyAndAddToCart>
               ) : (
                 <QtyAndAddToCart>
-                  <IconPress onPress={addToCartHandler} activeOpacity={0.5} ml>
+                  <IconPress activeOpacity={1} ml>
                     <MaterialCommunityIcons
                       name="emoticon-sad-outline"
                       size={24}
