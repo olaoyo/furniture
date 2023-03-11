@@ -1,6 +1,7 @@
 import { useDispatch } from "react-redux";
 import { useNavigation } from "@react-navigation/native";
-import { increaseFurnitureQty, decreaseFurnitureQty } from "../../../../redux/actions/cartActions";
+import { increaseFurnitureQty, decreaseFurnitureQty, removeFurnitureFromCart } from "../../../../redux/actions/cartActions";
+
 import {
   CartDetailsStyles,
   CartInfo,
@@ -42,6 +43,9 @@ function CartDetails({ id, image, name, price, qty }) {
     navigate("Details", { furnitureId: id })
   }
 
+  const deleteFromCartHandler = (furnitureId) => {
+    dispatch(removeFurnitureFromCart(furnitureId))
+  }
 
   return (
     <>
@@ -65,7 +69,7 @@ function CartDetails({ id, image, name, price, qty }) {
             <CartInfo furnitureName>{name}</CartInfo>
             <CartInfo price>{priceFormatted}</CartInfo>
             <CartInfo subtotal>{subtotalFormatted}</CartInfo>
-            <Pressable activeOpacity={0.5}>
+            <Pressable onPress={() => deleteFromCartHandler(id)} activeOpacity={0.5}>
               <CartInfo deleteItem>Delete</CartInfo>
             </Pressable>
           </NameAndPrice>

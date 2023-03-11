@@ -1,8 +1,10 @@
-import { MessageText } from "./Message.styles";
+import { MessageGrid, MessageText } from "./Message.styles";
 
 function Message({ children }) {
   return (
-       <MessageText>{children}</MessageText>    
+       <MessageGrid>
+         <MessageText>{children}</MessageText>
+       </MessageGrid>    
   )
 }
 

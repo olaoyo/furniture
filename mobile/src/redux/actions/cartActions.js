@@ -26,15 +26,20 @@ export const addFurnitureToCart = (furnitureId, qty) => async (dispatch) => {
   };
 
 
+export const removeFurnitureFromCart = (furnitureId) => (dispatch) => {
+  dispatch({ type: CART_REMOVE_FURNITURE, payload: furnitureId });
+};
+
+
 export const increaseFurnitureQty = (furnitureId) => (dispatch) => {
   
-  dispatch({ type: FURNITURE_INCREASE_QTY, payload: furnitureId })
+  dispatch({ type: FURNITURE_INCREASE_QTY, payload: furnitureId });
 
 };
 
 
 export const decreaseFurnitureQty = (furnitureId) => (dispatch) => {
 
-  dispatch({ type: FURNITURE_DECREASE_QTY, payload: furnitureId })
+  dispatch({ type: FURNITURE_DECREASE_QTY, payload: furnitureId });
 
 };
