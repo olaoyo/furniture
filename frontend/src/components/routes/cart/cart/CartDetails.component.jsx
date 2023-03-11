@@ -1,7 +1,7 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import Message from "../../../message/Message.component";
-import { increaseFurnitureQty, decreaseFurnitureQty } from "../../../../redux/actions/cartActions";
+import { increaseFurnitureQty, decreaseFurnitureQty, removeFurnitureFromCart } from "../../../../redux/actions/cartActions";
 import { routeURL } from "../../../../api/api";
 
 import {
@@ -40,7 +40,13 @@ function CartDetails() {
 
   const checkoutHandler = () => {
     navigate(routeURL.checkout);
-  }
+  };
+
+  const deleteFromCartHandler = (furnitureId) => {
+    dispatch(removeFurnitureFromCart(furnitureId));
+  };
+
+
   return (
     <>
       {cartItems.length === 0 ? (
@@ -99,7 +105,7 @@ function CartDetails() {
                     $ {furniture.price * furniture.qty}
                   </Paragraph>
                 </Body>
-                <Body trash>
+                <Body onClick={() => deleteFromCartHandler(furniture.id)} trash>
                   <span className="material-symbols-outlined">delete</span>
                 </Body>
               </DetailsBody>

@@ -27,6 +27,13 @@ export const addFurnitureToCart = (furnitureId, qty) => async (dispatch, getStat
 };
 
 
+export const removeFurnitureFromCart = (furnitureId) => (dispatch, getState) => {
+  dispatch({ type: CART_REMOVE_FURNITURE, payload: furnitureId });
+
+  localStorage.setItem("cartItems", JSON.stringify(getState().cart.cartItems))
+}
+
+
 export const increaseFurnitureQty = (furnitureId) => (dispatch, getState) => {
   dispatch({ type: FURNITURE_INCREASE_QTY, payload: furnitureId });
 

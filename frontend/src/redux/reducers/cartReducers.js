@@ -30,7 +30,10 @@ export const cartReducer = (state = { cartItems: [] }, action) => {
       }
 
     case CART_REMOVE_FURNITURE:
-        return { loading: false, cartItems: action.payload }
+        return {
+          ...state,
+          cartItems: state.cartItems.filter((furniture) => furniture.id !== action.payload)
+        }
     
 
     case FURNITURE_INCREASE_QTY:
