@@ -24,7 +24,7 @@ import {
 
 import Rating from "../../../rating/Rating.component";
 
-import { addFurnitureToCart } from "../../../../redux/actions/cartActions";
+import { addFurnitureToCart, increaseFurnitureQty, decreaseFurnitureQty } from "../../../../redux/actions/cartActions";
 
 import { baseURL } from "../../../../api/api";
 
@@ -38,10 +38,10 @@ function Purchase({ loading, furniture: { _id, name, image, price, rating, count
 
   const { cartItems } = useSelector((state) => state.cart);
 
-
-  // Check if furniture details qty is in cart and use qty instead of default of 1
-  // const currentFurniture = cartItems.find((furniture) => furniture.id === _id)
-
+  // Check if furniture is in cart and use qty in cart instead of default of 1
+  const currentFurniture = cartItems.find(
+    (furniture) => furniture.id === _id
+  );
 
   const { navigate } = useNavigation();
 
@@ -57,10 +57,22 @@ function Purchase({ loading, furniture: { _id, name, image, price, rating, count
     setQty(event.target.value);
   };
 
+  const increaseFurnitureQtyHandler = (furnitureId) => {
+    dispatch(increaseFurnitureQty(furnitureId));
+  };
+
+  const decreaseFurnitureQtyHandler = (furnitureId) => {
+    dispatch(decreaseFurnitureQty(furnitureId));
+  };
+
   const addToCartHandler = () => {
     dispatch(addFurnitureToCart(_id, qty));
     navigate("Cart");
-    // navigate("Cart", { furnitureId: _id, furnitureQty: qty });
+  };
+  
+  const addToCartItemsHandler = () => {
+    dispatch(addFurnitureToCart(_id, currentFurniture.qty));
+    navigate("Cart");
   };
 
   const priceFormatted = formatCurrency(price);
@@ -71,7 +83,76 @@ function Purchase({ loading, furniture: { _id, name, image, price, rating, count
         <ActivityIndicator size="large" color={theme.colors.yellow} />
       ) : error ? (
         <Message>{error}</Message>
+      ) : currentFurniture ? (
+        // Qty from AsyncStorage cartItems
+        <>
+          <ImgAndPurchase>
+            <ImgBg large>
+              <Img large source={{ uri: baseURL + image }} />
+            </ImgBg>
+            <InfoAndCartButton>
+              <Info name>{name}</Info>
+              <Info price>{priceFormatted}</Info>
+              <RatingContainer>
+                <Rating rating={rating} />
+              </RatingContainer>
+
+              {countInStock > 0 ? (
+                <QtyAndAddToCart>
+                  <IconPress onPress={addToCartItemsHandler} activeOpacity={0.5} ml>
+                    <MaterialCommunityIcons
+                      name="cart-plus"
+                      size={24}
+                      color="black"
+                    />
+                  </IconPress>
+
+                  <QtyButton>
+                    <IconPress onPress={() => decreaseFurnitureQtyHandler(currentFurniture.id)} activeOpacity={0.5}>
+                      <AntDesign name="minus" size={15} color="black" />
+                    </IconPress>
+                    <Info qty>
+                      {currentFurniture.qty}
+                    </Info>
+                    <IconPress onPress={() => increaseFurnitureQtyHandler(currentFurniture.id)} activeOpacity={0.5}>
+                      <AntDesign name="plus" size={15} color="black" />
+                    </IconPress>
+                  </QtyButton>
+                </QtyAndAddToCart>
+              ) : (
+                <QtyAndAddToCart>
+                  <IconPress activeOpacity={1} ml>
+                    <MaterialCommunityIcons
+                      name="emoticon-sad-outline"
+                      size={24}
+                      color={theme.colors.grey.one}
+                    />
+                  </IconPress>
+
+                  <QtyButton outOfStock>
+                    <Info>Out of Stock</Info>
+                  </QtyButton>
+                </QtyAndAddToCart>
+              )}
+            </InfoAndCartButton>
+          </ImgAndPurchase>
+          <ImgSmallContainer>
+            <ImgBg small>
+              <Img small source={{ uri: baseURL + image }} />
+            </ImgBg>
+            <ImgBg small>
+              <Img small source={{ uri: baseURL + image }} />
+            </ImgBg>
+            <ImgBg small>
+              <Img small source={{ uri: baseURL + image }} />
+            </ImgBg>
+            <ImgBg small>
+              <Img small source={{ uri: baseURL + image }} />
+            </ImgBg>
+          </ImgSmallContainer>
+        </>
       ) : (
+        // Qty from useState(1)
         <>
           <ImgAndPurchase>
             <ImgBg large>
@@ -138,7 +219,7 @@ function Purchase({ loading, furniture: { _id, name, image, price, rating, count
             </ImgBg>
           </ImgSmallContainer>
         </>
-      )}
+      ) }
     </DetailsStyles>
   );
 }
