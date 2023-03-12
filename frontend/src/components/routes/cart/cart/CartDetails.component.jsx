@@ -20,23 +20,25 @@ import {
 
 import { CheckOutButton } from "../../../buttons/Buttons";
 
+import formatCurrency from "../../../../utils/formatCurrency";
+
 function CartDetails() {
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
   const { cartItems } = useSelector((state) => state.cart);
 
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   
   const increaseFurnitureQtyHandler = (furnitureId) => {
-    dispatch(increaseFurnitureQty(furnitureId))
-  }
+    dispatch(increaseFurnitureQty(furnitureId));
+  };
 
   const decreaseFurnitureQtyHandler = (furnitureId) => {
-    dispatch(decreaseFurnitureQty(furnitureId))
-  }
+    dispatch(decreaseFurnitureQty(furnitureId));
+  };
 
-  const subtotal = cartItems.reduce((total, furniture) => total + (furniture.qty * furniture.price), 0)
+  const subtotal = cartItems.reduce((total, furniture) => total + (furniture.qty * furniture.price), 0);
 
-  const total = subtotal
+  const total = subtotal;
 
   const checkoutHandler = () => {
     navigate(routeURL.checkout);
@@ -86,7 +88,7 @@ function CartDetails() {
                 </Body>
                 <Body price>
                   <Paragraph grey p3>
-                    $ {furniture.price}
+                     {formatCurrency(furniture.price)}
                   </Paragraph>
                 </Body>
                 <Body quantity>
@@ -102,7 +104,7 @@ function CartDetails() {
                 </Body>
                 <Body subtotal>
                   <Paragraph grey p3>
-                    $ {furniture.price * furniture.qty}
+                     {formatCurrency(furniture.price * furniture.qty)}
                   </Paragraph>
                 </Body>
                 <Body onClick={() => deleteFromCartHandler(furniture.id)} trash>
@@ -121,7 +123,7 @@ function CartDetails() {
                 Subtotal
               </Paragraph>
               <Paragraph p3 regular grey right>
-                $ {subtotal}
+                 {formatCurrency(subtotal)}
               </Paragraph>
             </Subtotal>
             <Subtotal>
@@ -129,7 +131,7 @@ function CartDetails() {
                 Total
               </Paragraph>
               <Paragraph p2 medium gold right>
-                $ {total}
+                 {formatCurrency(total)}
               </Paragraph>
             </Subtotal>
             <CheckOutButton

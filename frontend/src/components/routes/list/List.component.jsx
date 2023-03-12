@@ -18,6 +18,8 @@ import Rating from "../../rating/Rating.component";
 
 import { routeURL } from "../../../api/api";
 
+import formatCurrency from "../../../utils/formatCurrency";
+
 function FurnitureList() {
   
   const dispatch = useDispatch();
@@ -29,6 +31,7 @@ function FurnitureList() {
   useEffect(() => {
     dispatch(listFurnitures());
   }, [dispatch]);
+
 
   return (
     <>
@@ -45,7 +48,7 @@ function FurnitureList() {
                 <FurnitureText>
                   <FurnitureNamePrice>{furniture.name}</FurnitureNamePrice>
                   <FurnitureNamePrice price>
-                    ${furniture.price}
+                    {formatCurrency(furniture.price)}
                   </FurnitureNamePrice>
                 </FurnitureText>
                 <Rating rating={furniture.rating} margin />

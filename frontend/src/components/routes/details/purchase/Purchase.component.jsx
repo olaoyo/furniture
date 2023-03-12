@@ -40,6 +40,8 @@ import Message from "../../../message/Message.component";
 
 import { routeURL } from "../../../../api/api";
 
+import formatCurrency from "../../../../utils/formatCurrency";
+
 function Purchase({ loading, furniture, error, furnitureId }) {
   const [qty, setQty] = useState(1);
 
@@ -105,7 +107,7 @@ function Purchase({ loading, furniture, error, furnitureId }) {
           <DetailsGrid>
             <DetailsHeader>{furniture.name}</DetailsHeader>
             <Details p1 grey>
-              ${furniture.price}
+              {formatCurrency(furniture.price)}
             </Details>
             <Reviews>
               <RatingGrid>
@@ -230,7 +232,7 @@ function Purchase({ loading, furniture, error, furnitureId }) {
           <DetailsGrid>
             <DetailsHeader>{furniture.name}</DetailsHeader>
             <Details p1 grey>
-              ${furniture.price}
+              {formatCurrency(furniture.price)}
             </Details>
             <Reviews>
               <RatingGrid>
