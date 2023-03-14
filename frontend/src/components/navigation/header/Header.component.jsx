@@ -44,7 +44,7 @@ function Header() {
           </ProfileInner>
         </ProfileOuter>
 
-        <LoginButton>Login</LoginButton>
+        <LoginButton><Link to={routeURL.auth.login}>Login</Link></LoginButton>
       </HeaderStyles>
 
       <Outlet />
