@@ -6,7 +6,7 @@ import Register from "../../screens/auth/register/Register"
 
 const { Navigator, Screen } = createNativeStackNavigator();
 
-function AuthNavigator() {
+function AuthNavigation() {
   return (
     <Navigator>
       <Screen
@@ -24,4 +24,4 @@ function AuthNavigator() {
   );
 }
 
-export default AuthNavigator;
+export default AuthNavigation;

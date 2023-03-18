@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useLayoutEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigation } from "@react-navigation/native";
 
@@ -36,8 +36,17 @@ function LoginForm() {
 
   const { navigate } = useNavigation();
 
-  const { error, loading } = useSelector((state) => state.userLogin);
+  const { error, loading, userInfo } = useSelector((state) => state.userLogin);
 
+  // If user is logged in, redirect
+  useLayoutEffect(() => {
+    if (userInfo) {
+      navigate("BottomTabs", {
+        screen: "Home",
+      });
+    } 
+  }, [navigate, userInfo]);
+  
   const submitHandler = () => {
     dispatch(login(email, password));
   };
@@ -171,7 +180,6 @@ function LoginForm() {
                 )}
 
                 <Spacer verticalOne />
-
               </InputCard>
             </Form>
           </LoginFormStyles>

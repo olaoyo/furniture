@@ -1,7 +1,7 @@
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
-import Search from "../../inputs/search/Search.component";
 
+import AuthNavigation from "../auth/AuthNavigation.component";
 import BottomTabs from "../tabs/BottomTabs.component";
 import Details from "../../screens/details/Details";
 import Checkout from "../../screens/chekout/Checkout";
@@ -12,7 +12,6 @@ const { Navigator, Screen } = createNativeStackNavigator();
 function AppNavigation() {
   return (
     <>
-      <Search />
       <Navigator
         screenOptions={{
           headerStyle: { backgroundColor: theme.colors.primary },
@@ -21,12 +20,21 @@ function AppNavigation() {
         }}
       >
         <Screen
+          name="Authentication"
+          component={AuthNavigation}
+          options={{
+            headerShown: false,
+          }}
+        />
+
+        <Screen
           name="BottomTabs"
           component={BottomTabs}
           options={{
             headerShown: false,
           }}
         />
+        
         <Screen
           name="Details"
           component={Details}
@@ -34,6 +42,7 @@ function AppNavigation() {
             title: "Furniture Details",
           }}
         />
+        
         <Screen
           name="Checkout"
           component={Checkout}
