@@ -73,4 +73,10 @@ export const ProfileInner = styled.div`
     justify-self: center;
     align-self: center;
   }
+
+  span {
+    font-size: ${({ theme }) => theme.fontSizes.headers.h5};
+    justify-self: center;
+    align-self: center;
+  }
 `;

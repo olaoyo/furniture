@@ -1,3 +1,5 @@
+import { useDispatch, useSelector } from "react-redux";
+
 import { Outlet, Link } from "react-router-dom";
 import {
   HeaderStyles,
@@ -14,7 +16,19 @@ import { LoginButton } from "../../buttons/Buttons";
 import MeubelHouseLogo from "./img/MeubelHouseLogo.png";
 import { routeURL } from "../../../api/api";
 
+import { logout } from "../../../redux/actions/userActions";
+
+import formatNameAtPositionZero from "../../../utils/formatName[0]";
+
 function Header() {
+  const dispatch = useDispatch();
+
+  const { userInfo } = useSelector((state) => state.userLogin);
+
+  const logoutHandler = () => {
+    dispatch(logout());
+  };
+
   return (
     <>
       <HeaderStyles>
@@ -30,21 +44,47 @@ function Header() {
           <Link to={routeURL.furniture.shop}>
             <MenuItem>Shop</MenuItem>
           </Link>
-          <MenuItem>Admin</MenuItem>
-          <MenuItem>Profile</MenuItem>
+          {userInfo ? (
+            <>
+              <Link to={routeURL.auth.admin}>
+                <MenuItem>Admin</MenuItem>
+              </Link>
+              <Link to={routeURL.auth.profile}>
+                <MenuItem>Profile</MenuItem>
+              </Link>
+            </>
+          ) : (
+            ``
+          )}
         </Menu>
 
         <Cart>
-          <Link to={routeURL.cart}><span className="material-symbols-outlined">shopping_cart</span></Link>
+          <Link to={routeURL.cart}>
+            <span className="material-symbols-outlined">shopping_cart</span>
+          </Link>
         </Cart>
 
-        <ProfileOuter>
-          <ProfileInner>
-            <p>OO</p>
-          </ProfileInner>
-        </ProfileOuter>
-
-        <LoginButton><Link to={routeURL.auth.login}>Login</Link></LoginButton>
+        {userInfo ? (
+          <>
+            <ProfileOuter>
+              <ProfileInner>
+                <p>{formatNameAtPositionZero(userInfo)}</p>
+              </ProfileInner>
+            </ProfileOuter>
+            <LoginButton onClick={logoutHandler}>Logout</LoginButton>
+          </>
+        ) : (
+          <>
+            <ProfileOuter>
+              <ProfileInner>
+                <span className="material-symbols-outlined">person</span>
+              </ProfileInner>
+            </ProfileOuter>
+            <LoginButton>
+              <Link to={routeURL.auth.login}>Login</Link>
+            </LoginButton>
+          </>
+        )}
       </HeaderStyles>
 
       <Outlet />
