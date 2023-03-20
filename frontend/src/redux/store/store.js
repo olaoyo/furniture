@@ -4,7 +4,7 @@ import { composeWithDevTools } from "redux-devtools-extension";
 
 import { furnitureListReducer, furnitureDetailsReducer } from "../reducers/furnitureReducers";
 import { cartReducer } from "../reducers/cartReducers";
-import { userLoginReducer } from "../reducers/userReducers";
+import { userLoginReducer, userRegisterReducer } from "../reducers/userReducers";
 
 const reducer = combineReducers({
     furnitureList: furnitureListReducer,
@@ -13,6 +13,7 @@ const reducer = combineReducers({
     cart: cartReducer,
 
     userLogin: userLoginReducer,
+    userRegister: userRegisterReducer,
 });
 
 const cartItemsFromStorage = localStorage.getItem("cartItems") ? JSON.parse(localStorage.getItem("cartItems")) : []
