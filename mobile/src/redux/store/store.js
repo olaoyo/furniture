@@ -6,7 +6,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 
 import { furnitureListReducer, furnitureDetailsReducer } from "../reducers/furnitureReducers";
 import { cartReducer } from "../reducers/cartReducers"; 
-import { userLoginReducer } from "../reducers/userReducers";
+import { userLoginReducer, userRegisterReducer } from "../reducers/userReducers";
 
 const cartConfig = {
   key: "cartItems",
@@ -27,7 +27,8 @@ const reducer = combineReducers({
 
   cart: persistReducer(cartConfig,cartReducer),
 
-  userLogin: persistReducer(userLoginConfig,userLoginReducer) 
+  userLogin: persistReducer(userLoginConfig,userLoginReducer), 
+  userRegister: userRegisterReducer, 
 });
 
 

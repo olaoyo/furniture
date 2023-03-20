@@ -1,10 +1,9 @@
 import { Text, View } from 'react-native'
+import RegisterForm from './registerForm/RegisterForm.component'
 
 function Register() {
   return (
-    <View>
-        <Text>Register</Text>
-    </View>
+    <RegisterForm />
   )
 }
 
