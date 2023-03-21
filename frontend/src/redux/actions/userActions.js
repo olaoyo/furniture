@@ -9,8 +9,10 @@ import {
   USER_REGISTER_REQUEST,
   USER_REGISTER_SUCCESS,
   USER_REGISTER_FAIL,
+  USER_PROFILE_REQUEST,
+  USER_PROFILE_SUCCESS,
+  USER_PROFILE_FAIL,
 } from "../constants/userConstants";
-
 
 export const login = (email, password) => async (dispatch) => {
   try {
@@ -42,16 +44,14 @@ export const login = (email, password) => async (dispatch) => {
   }
 };
 
-
 export const logout = () => (dispatch) => {
   localStorage.removeItem("userInfo");
 
   dispatch({ type: USER_LOGOUT });
 };
 
-
-
-export const register = (name, surname, email, password) => async (dispatch) => {
+export const register =
+  (name, surname, email, password) => async (dispatch) => {
     try {
       dispatch({ type: USER_REGISTER_REQUEST });
 
@@ -60,7 +60,7 @@ export const register = (name, surname, email, password) => async (dispatch) => 
           "Content-type": "application/json",
         },
       };
-      
+
       const { data } = await axios.post(
         API.auth.register,
         { name: name, surname: surname, email: email, password: password },
@@ -73,7 +73,6 @@ export const register = (name, surname, email, password) => async (dispatch) => 
       dispatch({ type: USER_LOGIN_SUCCESS, payload: data });
 
       localStorage.setItem("userInfo", JSON.stringify(data));
-      
     } catch (error) {
       dispatch({
         type: USER_REGISTER_FAIL,
@@ -85,3 +84,31 @@ export const register = (name, surname, email, password) => async (dispatch) => 
     }
   };
 
+export const getUserProfile = (id) => async (dispatch, getState) => {
+  try {
+    dispatch({ type: USER_PROFILE_REQUEST });
+
+    const { userLogin: { userInfo: { token } } } = getState();
+
+    const config = {
+      headers: {
+        "Content-type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    };
+
+    const { data } = await axios.get(API.auth.profile(id), config);
+
+    dispatch({ type: USER_PROFILE_SUCCESS, payload: data });
+
+    
+  } catch (error) {
+    dispatch({
+      type: USER_PROFILE_FAIL,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    });
+  }
+};
