@@ -6,6 +6,7 @@ const API = {
   auth: {
     register: `${apiURL}/users/register/`,
     login: `${apiURL}/users/login/`,
+    profile: (id) => `${apiURL}/users/${id}/`,
   },
   
   furniture: {

@@ -9,6 +9,9 @@ import {
   USER_REGISTER_REQUEST,
   USER_REGISTER_SUCCESS,
   USER_REGISTER_FAIL,
+  USER_PROFILE_REQUEST,
+  USER_PROFILE_SUCCESS,
+  USER_PROFILE_FAIL,
 } from "../constants/userConstants";
 
 export const login = (email, password) => async (dispatch) => {
@@ -76,3 +79,32 @@ export const register = (name, surname, email, password) => async (dispatch) => 
       });
     }
   };
+
+
+export const getUserProfile = (id) => async (dispatch, getState) => {
+  try {
+    dispatch({ type: USER_PROFILE_REQUEST })
+
+    const { userLogin: { userInfo: { token } } } = getState();
+
+    config = {
+      headers: {
+        "Content-type": "application/json",
+        Authorization: `Bearer ${token}`, 
+      },
+    };
+
+    const { data } = await axios.get(API.auth.profile(id), config);
+    
+    dispatch({ type: USER_PROFILE_SUCCESS, payload: data })
+
+  } catch (error) {
+    dispatch({
+      type: USER_PROFILE_FAIL,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    });
+  }
+}

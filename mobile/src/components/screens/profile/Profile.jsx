@@ -1,60 +1,62 @@
+import { useLayoutEffect } from "react";
+
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigation } from "@react-navigation/native";
 
-import { Text, View } from "react-native";
+import Welcome from "./welcome/Welcome.component";
+import ProfileButtons from "./profileButtons/ProfileButtons.component";
 
-import { logout } from "../../../redux/actions/userActions";
+import { getUserProfile, logout } from "../../../redux/actions/userActions";
 
-import { AuthButton } from "../../buttons/Buttons";
+import Message from "../../message/Message.component";
+import { Entypo } from "@expo/vector-icons";
+import { theme } from "../../../themes/themes";
+import { PressLogin } from "./welcome/Welcome.styles";
 
-import formatNameAtPositionZero from "../../../utils/formatName[0]";
+function Profile({ navigation }) {
 
-function Profile() {
   const dispatch = useDispatch();
 
+  const { user } = useSelector((state) => state.userProfile);
+
+  // Check if user is logged in
   const { userInfo } = useSelector((state) => state.userLogin);
 
-  const { navigate } = useNavigation();
-
-  const logoutHandler = () => {
-    dispatch(logout());
-  };
+  useLayoutEffect(() => {
+    if (!userInfo) {
+      navigation.navigate("Home");
+    } else {
+      
+      if (!user || !user.name) {
+        dispatch(getUserProfile("profile"))
+      }
+    }
+  }, [dispatch, navigation, user, userInfo])
 
   const loginHandler = () => {
-    navigate("Authentication", {
-      screen: "Login"
-    })
-  }
+    navigation.navigate("Login");
+  };
 
   return (
-    <View>
-      {userInfo ? (
+    <>
+    {/* userInfo used in place of user because userInfo comes from AsyncStorage while user comes from the db and requires component refreshing to be invoked */}
+
+    {/* && user is included to avoid an empty user object pushed to <Welcome user={user} />. If the user is logged out, it invokes an error instead of the else statement below */}
+      {userInfo && user ? (
         <>
-          <Text>{userInfo.name}</Text>
-          <Text>{userInfo.surname}</Text>
-          <AuthButton
-            border
-            icon="logout"
-            mode="contained"
-            onPress={logoutHandler}
-          >
-            Logout
-          </AuthButton>
+          <Welcome user={user} logout={logout} />
+          <ProfileButtons user={user} />
         </>
       ) : (
         <>
-          <Text>Not Logged In</Text>
-          <AuthButton
-            border
-            icon="login"
-            mode="contained"
-            onPress={loginHandler}
-          >
-            Login
-          </AuthButton>
+          <Message>Please press the Login icon below</Message>
+          <Message>
+            <PressLogin onPress={loginHandler} activeOpacity={0.5}>
+              <Entypo name="login" size={150} color={theme.colors.grey.one} />
+            </PressLogin>
+          </Message>
         </>
       )}
-    </View>
+    </>
   );
 }
 
