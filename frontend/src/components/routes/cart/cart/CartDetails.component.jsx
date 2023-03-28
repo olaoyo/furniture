@@ -41,7 +41,7 @@ function CartDetails() {
   const total = subtotal;
 
   const checkoutHandler = () => {
-    navigate(routeURL.checkout);
+    navigate(routeURL.shipping);
   };
 
   const deleteFromCartHandler = (furnitureId) => {

@@ -19,6 +19,18 @@ export const LabelAndInput = styled.div`
   display: grid;
   grid-template-rows: repeat(2, max-content);
   row-gap: 2rem;
+
+
+  ${({ gridStart, gridEnd }) =>
+    gridStart
+      ? css`
+          justify-self: start;
+        `
+      : gridEnd
+      ? css`
+          justify-self: end;
+        `
+      : css``}
 `;
 
 export const Label = styled.label`
@@ -50,6 +62,19 @@ export const Input = styled.input`
   &::-webkit-input-placeholder {
     color: ${({ theme }) => theme.colors.grey.two};
   }
+
+  ${({ medium }) =>
+    medium
+      ? css`
+          width: 19.15rem;
+        `
+      : css``}
+`;
+
+export const MediumInputGrid = styled.div`
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  column-gap: 2rem;
 `;
 
 export const CheckboxAndText = styled.div`

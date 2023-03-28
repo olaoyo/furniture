@@ -38,7 +38,12 @@ export const routeURL = {
   },
 
   cart: `/cart`,
+
   addToCart: (id, qty) =>`/cart/${id}/qty?=${qty}`,
-  checkout: `/login?redirect=chekout`,
   
+  checkout: `/login?redirect=chekout`,
+
+  shipping: `/shipping`,
+  
+  payment: `/payment`,
 };

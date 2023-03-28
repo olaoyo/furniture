@@ -4,6 +4,7 @@ import API from "../../api/api";
 import {
   CART_ADD_FURNITURE,
   CART_REMOVE_FURNITURE,
+  CART_SAVE_SHIPPING_DETAILS,
   FURNITURE_INCREASE_QTY,
   FURNITURE_DECREASE_QTY,
 } from "../constants/cartConstants";
@@ -45,5 +46,13 @@ export const decreaseFurnitureQty = (furnitureId) => (dispatch, getState) => {
   dispatch({ type: FURNITURE_DECREASE_QTY, payload: furnitureId });
 
   localStorage.setItem("cartItems", JSON.stringify(getState().cart.cartItems));
+};
+
+
+export const saveShippingDetails = (data) => (dispatch) => {
+
+  dispatch({ type: CART_SAVE_SHIPPING_DETAILS, payload: data });
+
+  localStorage.setItem("shippingDetails", JSON.stringify(data));
 };
 
