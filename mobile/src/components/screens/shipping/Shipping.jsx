@@ -1,11 +1,13 @@
 import ShippingForm from "./shippingForm/ShippingForm.component"
+import CheckoutSteps from "../../checkoutSteps/CheckoutSteps.component";
 
-function Shipping({ route }) {
-
-  const { total } = route.params
+function Shipping() {
 
   return (
-    <ShippingForm  />
+    <>
+      <CheckoutSteps step1 />
+      <ShippingForm  />
+    </>
   )
 }
 
