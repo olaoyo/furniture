@@ -4,7 +4,8 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import AuthNavigation from "../auth/AuthNavigation.component";
 import BottomTabs from "../tabs/BottomTabs.component";
 import Details from "../../screens/details/Details";
-import Checkout from "../../screens/chekout/Checkout";
+import Shipping from "../../screens/shipping/Shipping";
+import Payment from "../../screens/payment/Payment";
 
 import Account from "../../screens/profile/account/Account.component";
 import Orders from "../../screens/profile/orders/Orders.component";
@@ -48,10 +49,10 @@ function AppNavigation() {
         />
         
         <Screen
-          name="Checkout"
-          component={Checkout}
+          name="Shipping"
+          component={Shipping}
           options={{
-            title: "Checkout",
+            title: "Shipping",
           }}
         />
         
@@ -68,6 +69,14 @@ function AppNavigation() {
           component={Orders}
           options={{
             title: "My Orders",
+          }}
+        />
+        
+        <Screen
+          name="Payment"
+          component={Payment}
+          options={{
+            title: "Payment",
           }}
         />
       </Navigator>

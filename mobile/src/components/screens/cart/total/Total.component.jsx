@@ -12,7 +12,7 @@ function Total({ cartItems }) {
   const total = formatCurrency(subtotal);
 
   const checkoutHandler = () => {
-    navigate("Checkout", { total: total })
+    navigate("Shipping", { total: total })
   }
 
   return (

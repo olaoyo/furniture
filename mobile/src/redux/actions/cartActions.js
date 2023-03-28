@@ -4,6 +4,7 @@ import API from "../../api/api";
 import {
   CART_ADD_FURNITURE,
   CART_REMOVE_FURNITURE,
+  CART_SAVE_SHIPPING_DETAILS,
   FURNITURE_INCREASE_QTY,
   FURNITURE_DECREASE_QTY,
 } from "../constants/cartConstants";
@@ -43,3 +44,11 @@ export const decreaseFurnitureQty = (furnitureId) => (dispatch) => {
   dispatch({ type: FURNITURE_DECREASE_QTY, payload: furnitureId });
 
 };
+
+
+export const saveShippingDetails = (data) => (dispatch) => {
+
+  dispatch({ type: CART_SAVE_SHIPPING_DETAILS, payload: data });
+
+};
+

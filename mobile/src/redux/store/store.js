@@ -11,7 +11,7 @@ import { userLoginReducer, userRegisterReducer, userProfileReducer } from "../re
 const cartConfig = {
   key: "cartItems",
   storage: AsyncStorage,
-  whitelist: ["cartItems"],
+  whitelist: ["cartItems", "shippingDetails"],
 };
 
 const userLoginConfig = {

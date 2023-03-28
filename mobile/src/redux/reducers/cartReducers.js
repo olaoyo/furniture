@@ -1,11 +1,12 @@
 import {
   CART_ADD_FURNITURE,
   CART_REMOVE_FURNITURE,
+  CART_SAVE_SHIPPING_DETAILS,
   FURNITURE_INCREASE_QTY,
   FURNITURE_DECREASE_QTY,
 } from "../constants/cartConstants";
 
-export const cartReducer = (state = { cartItems: [] }, action) => {
+export const cartReducer = (state = { cartItems: [], shippingDetails: {} }, action) => {
   switch (action.type) {
     case CART_ADD_FURNITURE:
       const addedFurniture = action.payload;
@@ -59,6 +60,9 @@ export const cartReducer = (state = { cartItems: [] }, action) => {
             : furniture
         ),
       };
+
+    case CART_SAVE_SHIPPING_DETAILS:
+      return { ...state, shippingDetails: action.payload };
 
     default:
       return state;
