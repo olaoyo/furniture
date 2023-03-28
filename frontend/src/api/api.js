@@ -46,4 +46,6 @@ export const routeURL = {
   shipping: `/shipping`,
   
   payment: `/payment`,
+  
+  placeOrder: `/placeorder`,
 };
