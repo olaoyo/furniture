@@ -1,12 +1,24 @@
 import styled, { css } from "styled-components";
 
 export const Form = styled.form`
-  grid-column: 6 / span 2;
-  display: grid;
-  grid-template-rows: repeat(5, max-content);
-  row-gap: 4rem;
+  ${({ center }) =>
+    center
+      ? css`
+          grid-column: 5 / span 2;
+          display: grid;
+          grid-template-rows: repeat(5, max-content);
+          row-gap: 4rem;
 
-  justify-self: center;
+          justify-self: center;
+        `
+      : css`
+          grid-column: 6 / span 2;
+          display: grid;
+          grid-template-rows: repeat(5, max-content);
+          row-gap: 4rem;
+
+          justify-self: center;
+        `}
 `;
 
 export const Header = styled.h5`
@@ -20,8 +32,7 @@ export const LabelAndInput = styled.div`
   grid-template-rows: repeat(2, max-content);
   row-gap: 2rem;
 
-
-  ${({ gridStart, gridEnd }) =>
+  ${({ gridStart, gridEnd, gridColumn }) =>
     gridStart
       ? css`
           justify-self: start;
@@ -29,6 +40,11 @@ export const LabelAndInput = styled.div`
       : gridEnd
       ? css`
           justify-self: end;
+        `
+      : gridColumn
+      ? css`
+          grid-template-columns: repeat(2, max-content);
+          column-gap: 2rem;
         `
       : css``}
 `;
@@ -63,10 +79,21 @@ export const Input = styled.input`
     color: ${({ theme }) => theme.colors.grey.two};
   }
 
-  ${({ medium }) =>
+  ${({ medium, radio }) =>
     medium
       ? css`
           width: 19.15rem;
+        `
+      : radio
+      ? css`
+          width: 2rem;
+          height: 2rem;
+          border: 1px solid transparent;
+          background-color: ${({ theme }) => theme.colors.black};
+          color: ${({ theme }) => theme.colors.grey.one};
+          font-size: ${({ theme }) => theme.fontSizes.headers.h7};
+          font-weight: 400;
+          padding-left: 2rem;
         `
       : css``}
 `;
