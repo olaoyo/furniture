@@ -1,21 +1,15 @@
-import { Text, View } from "react-native";
+import PaymentMethod from "./paymentMethod/PaymentMethod.component";
 
-import { useSelector } from "react-redux";
+import CheckoutSteps from "../../checkoutSteps/CheckoutSteps.component";
+
 
 function Payment() {
 
-  const { shippingDetails: { name, surname, address, city, postalCode, country } } = useSelector((state) => state.cart);
-
   return (
-    <View>
-      <Text>Payment</Text>
-      <Text>{name}</Text>
-      <Text>{surname}</Text>
-      <Text>{address}</Text>
-      <Text>{city}</Text>
-      <Text>{postalCode}</Text>
-      <Text>{country}</Text>
-    </View>
+    <>
+      <CheckoutSteps step1 step2 />
+      <PaymentMethod />
+    </>
   );
 }
 

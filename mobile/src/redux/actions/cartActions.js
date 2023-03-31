@@ -7,6 +7,7 @@ import {
   CART_SAVE_SHIPPING_DETAILS,
   FURNITURE_INCREASE_QTY,
   FURNITURE_DECREASE_QTY,
+  CART_SAVE_PAYMENT_METHOD,
 } from "../constants/cartConstants";
  
 export const addFurnitureToCart = (furnitureId, qty) => async (dispatch) => {
@@ -52,3 +53,9 @@ export const saveShippingDetails = (data) => (dispatch) => {
 
 };
 
+
+export const savePaymentMethod = (data) => (dispatch) => {
+
+  dispatch({ type: CART_SAVE_PAYMENT_METHOD, payload: data });
+
+};

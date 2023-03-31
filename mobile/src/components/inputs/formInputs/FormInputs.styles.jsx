@@ -1,8 +1,15 @@
 import styled, { css } from "styled-components/native";
 
 export const Form = styled.View`
-  height: 100px;
-  justify-content: center;
+  ${({ center }) =>
+    center
+      ? css`
+          align-items: center;
+        `
+      : css`
+          height: 100px;
+          justify-content: center;
+        `}
 `;
 
 export const TextTouch = styled.TouchableOpacity``;
@@ -41,8 +48,17 @@ export const ErrorContainer = styled.View`
 export const InputCard = styled.View``;
 
 export const AuthInputGrid = styled.View`
-  flex-direction: row;
-  justify-content: space-between;
+  ${({ spaceAround }) =>
+    spaceAround
+      ? css`
+          flex-direction: row;
+          justify-content: space-around;
+          align-items: center;
+        `
+      : css`
+          flex-direction: row;
+          justify-content: space-between;
+        `}
 `;
 
 export const AuthInput = styled.TextInput`

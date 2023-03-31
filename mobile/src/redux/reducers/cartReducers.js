@@ -4,9 +4,10 @@ import {
   CART_SAVE_SHIPPING_DETAILS,
   FURNITURE_INCREASE_QTY,
   FURNITURE_DECREASE_QTY,
+  CART_SAVE_PAYMENT_METHOD,
 } from "../constants/cartConstants";
 
-export const cartReducer = (state = { cartItems: [], shippingDetails: {} }, action) => {
+export const cartReducer = (state = { cartItems: [], shippingDetails: {}, paymentMethod: {} }, action) => {
   switch (action.type) {
     case CART_ADD_FURNITURE:
       const addedFurniture = action.payload;
@@ -64,6 +65,9 @@ export const cartReducer = (state = { cartItems: [], shippingDetails: {} }, acti
     case CART_SAVE_SHIPPING_DETAILS:
       return { ...state, shippingDetails: action.payload };
 
+    case CART_SAVE_PAYMENT_METHOD:
+      return { ...state, paymentMethod: action.payload };
+    
     default:
       return state;
   }

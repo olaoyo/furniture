@@ -1,6 +1,6 @@
 import styled, { css } from "styled-components/native";
 import { theme } from "../../themes/themes";
-import { Button } from "react-native-paper";
+import { Button, RadioButton } from "react-native-paper";
 
 export const CustomButton = styled.TouchableOpacity`
   background: transparent;
@@ -36,3 +36,8 @@ export const AuthButton = styled(Button).attrs({
         `
       : css``}
 `;
+
+export const Radio = styled(RadioButton).attrs({
+  color: theme.colors.purple,
+  backgroundColor: theme.colors.yellow
+})``;
