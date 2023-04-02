@@ -9,6 +9,7 @@ import Register from "./components/routes/auth/register/Register";
 import Profile from "./components/routes/auth/profile/Profile";
 import Shipping from "./components/routes/shipping/Shipping";
 import Payment from "./components/routes/payment/Payment";
+import PlaceOrder from "./components/routes/placeOrder/PlaceOrder";
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
         <Route path="/profile" element={<Profile />} />
         <Route path="/shipping" element={<Shipping />} />
         <Route path="/payment" element={<Payment />} />
+        <Route path="/placeorder" element={<PlaceOrder />} />
         <Route path="/shop" element={<Shop />} />
         <Route path="/shop/furniture/:furnitureId" element={<Details />} />
         <Route path="/cart/" element={<Cart />} />

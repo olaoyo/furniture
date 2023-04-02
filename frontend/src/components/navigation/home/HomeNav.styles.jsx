@@ -5,6 +5,7 @@ export const HomeNavStyles = styled.div`
   grid-template-columns: repeat(3, max-content);
   width: 12.1rem;
   height: 2.4rem;
+  justify-content: center;
 `;
 
 export const HomeParagraphs = styled.p`
