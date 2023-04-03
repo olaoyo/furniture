@@ -21,7 +21,7 @@ export const ButtonText = styled.Text`
 export const AuthButton = styled(Button).attrs({
   textColor: theme.colors.black,
 })`
-  ${({ border, noBorder }) =>
+  ${({ border, noBorder, transparent }) =>
     border
       ? css`
           background: ${({ theme }) => theme.colors.white};
@@ -34,10 +34,17 @@ export const AuthButton = styled(Button).attrs({
           background: transparent;
           border-color: ${({ theme }) => theme.colors.black};
         `
+      : transparent
+      ? css`
+          background: transparent;
+          border-radius: 10px;
+          border-color: ${({ theme }) => theme.colors.black};
+          border-width: 1px;
+        `
       : css``}
 `;
 
 export const Radio = styled(RadioButton).attrs({
   color: theme.colors.purple,
-  backgroundColor: theme.colors.yellow
+  backgroundColor: theme.colors.yellow,
 })``;

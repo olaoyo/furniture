@@ -85,7 +85,7 @@ function AppNavigation() {
           name="Place Order"
           component={PlaceOrder}
           options={{
-            title: "PlaceOrder",
+            title: "Place Order",
           }}
         />
       </Navigator>
