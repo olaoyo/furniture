@@ -1,5 +1,16 @@
+import { useEffect } from "react";
+
 import { Link } from "react-router-dom";
-import { useSelector } from "react-redux";
+
+import { useDispatch, useSelector } from "react-redux";
+
+import { useNavigate } from "react-router-dom";
+
+import {
+  createOrder,
+  resetOrder,
+} from "../../../../redux/actions/orderActions";
+
 import Message from "../../../message/Message.component";
 
 import {
@@ -36,10 +47,18 @@ import { routeURL } from "../../../../api/api";
 
 import formatCurrency from "../../../../utils/formatCurrency";
 
-function PlaceOrder() {
+function PlaceOrderDetails() {
+  const dispatch = useDispatch();
+
   const { cartItems, shippingDetails, paymentMethod } = useSelector(
     (state) => state.cart
   );
+
+  const { error, loading, order, success } = useSelector(
+    (state) => state.orderCreate
+  );
+
+  const navigate = useNavigate();
 
   const furniturePrice = cartItems.reduce(
     (total, furniture) => total + furniture.price * furniture.qty,
@@ -52,8 +71,30 @@ function PlaceOrder() {
 
   const totalPrice = furniturePrice + shippingPrice + taxPrice;
 
+  if (!paymentMethod) {
+    navigate(routeURL.payment);
+  }
+
+  useEffect(() => {
+    if (success) {
+      navigate(routeURL.orderDetails(order._id));
+
+      dispatch(resetOrder());
+    }
+  }, [dispatch, navigate, order, success]);
+
   const placeOrder = () => {
-    console.log("Place Order");
+    dispatch(
+      createOrder({
+        orderItems: cartItems,
+        shippingAddress: shippingDetails,
+        paymentMethod: paymentMethod,
+        furniturePrice: furniturePrice,
+        shippingPrice: shippingPrice,
+        taxPrice: taxPrice,
+        totalPrice: totalPrice,
+      })
+    );
   };
 
   return (
@@ -143,24 +184,36 @@ function PlaceOrder() {
               <Paragraph>
                 <strong>Total:</strong>
               </Paragraph>
-              <SummaryAmount  gold>{formatCurrency(totalPrice)}</SummaryAmount>
+              <SummaryAmount gold>{formatCurrency(totalPrice)}</SummaryAmount>
             </SummaryParagraphGrid>
             <SummaryLine>&nbsp;</SummaryLine>
           </SummaryContentGrid>
 
           <SummaryContentGrid centerNoMarginTop>
-            <PlaceOrderButton
-              type="button"
-              disabled={cartItems === 0}
-              onClick={placeOrder}
-            >
-              Place Order
-            </PlaceOrderButton>
+            {loading ? (
+              <PlaceOrderButton
+                type="button"
+                disabled={cartItems === 0 || loading}
+                onClick={placeOrder}
+              >
+                Processing ...
+              </PlaceOrderButton>
+            ) : (
+              <PlaceOrderButton
+                type="button"
+                disabled={cartItems === 0}
+                onClick={placeOrder}
+              >
+                Place Order
+              </PlaceOrderButton>
+            )}
           </SummaryContentGrid>
+
+          <>{error && <Message smallGold>{error}</Message>}</>
         </SummaryGrid>
       </PlaceOrderStyles>
     </>
   );
 }
 
-export default PlaceOrder;
+export default PlaceOrderDetails;

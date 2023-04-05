@@ -1,9 +1,9 @@
 import { MessageStyles, MessageText } from "./Message.styles";
 
-function Message({ children }) {
+function Message({ children, smallGold }) {
   return (
-       <MessageStyles>
-         <MessageText>{children}</MessageText>  
+       <MessageStyles smallGold={smallGold}>
+         <MessageText smallGold={smallGold}>{children}</MessageText>  
        </MessageStyles>  
   )
 }

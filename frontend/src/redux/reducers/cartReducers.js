@@ -5,6 +5,9 @@ import {
   FURNITURE_INCREASE_QTY,
   FURNITURE_DECREASE_QTY,
   CART_SAVE_PAYMENT_METHOD,
+  CART_CLEAR_ITEMS,
+  CART_CLEAR_SHIPPING_DETAILS,
+  CART_CLEAR_PAYMENT_METHOD,
 } from "../constants/cartConstants";
 
 export const cartReducer = (state = { cartItems: [], shippingDetails: {}, paymentMethod: {} }, action) => {
@@ -71,7 +74,19 @@ export const cartReducer = (state = { cartItems: [], shippingDetails: {}, paymen
     case CART_SAVE_PAYMENT_METHOD:
       return { ...state, paymentMethod: action.payload }
 
-      
+    
+    case CART_CLEAR_ITEMS:
+      return { ...state, cartItems: [] }
+
+    
+    case CART_CLEAR_SHIPPING_DETAILS:
+      return { ...state, shippingDetails: {} }
+
+    
+    case CART_CLEAR_PAYMENT_METHOD:
+      return { ...state, paymentMethod: {} }
+
+
     default:
       return state;
   }

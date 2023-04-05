@@ -15,7 +15,11 @@ const API = {
   },
 
   cart: `/cart`,
+
   addToCart: (qty, id) => `/cart/${id}/qty?=${qty}`,
+
+  order: `${apiURL}/orders/add/`,
+
 };
 
 export default API;
@@ -24,6 +28,9 @@ export default API;
 // Navigation URLs
 
 export const routeURL = {
+  
+  home: ``,
+  
   auth: {
     register: `/register`,
     login: `/login`,
@@ -48,4 +55,6 @@ export const routeURL = {
   payment: `/payment`,
   
   placeOrder: `/placeorder`,
+
+  orderDetails: (id) => `/order/${id}`
 };

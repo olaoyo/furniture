@@ -1,5 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
 
+import { useNavigate } from "react-router-dom";
+
 import { Outlet, Link } from "react-router-dom";
 import {
   HeaderStyles,
@@ -23,10 +25,13 @@ import formatNameAtPositionZero from "../../../utils/formatName[0]";
 function Header() {
   const dispatch = useDispatch();
 
+  const navigate = useNavigate();
+
   const { userInfo } = useSelector((state) => state.userLogin);
 
   const logoutHandler = () => {
     dispatch(logout());
+    navigate(routeURL.home);
   };
 
   return (

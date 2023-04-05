@@ -21,25 +21,29 @@ def add_order_items(request):
     if order_items and len(order_items) == 0:
         return Response({"detail": "No Order Items"}, status=status.HTTP_400_BAD_REQUEST)
     else:
+
         # (1) Create order
+
         order = Order.objects.create(
-            user=user,
-            paymentMethod=data["paymentMethod"],
-            taxPrice=data["taxPrice"],
-            shippingPrice=data["shippingPrice"],
-            totalPrice=data["totalPrice"]
+            user = user,
+            paymentMethod = data["paymentMethod"],
+            taxPrice = data["taxPrice"],
+            shippingPrice = data["shippingPrice"],
+            totalPrice = data["totalPrice"],
         )
 
         # (2) Create shipping address
+
         shipping = ShippingAddress.objects.create(
             order=order,
-            address=data["shippingDetails"]["address"],
-            city=data["shippingDetails"]["city"],
-            postalCode=data["shippingDetails"]["postalCode"],
-            country=data["shippingDetails"]["country"],
+            address=data["shippingAddress"]["address"],
+            city=data["shippingAddress"]["city"],
+            postalCode=data["shippingAddress"]["postalCode"],
+            country=data["shippingAddress"]["country"],
         )
 
         # (3) Create order items and set order to orderItem relationship
+
         for ordered_furniture in order_items:
             furniture = Furniture.objects.get(_id=ordered_furniture["id"])
 
@@ -49,11 +53,15 @@ def add_order_items(request):
                 name=furniture.name,
                 qty=ordered_furniture["qty"],
                 price=ordered_furniture["price"],
-                image=furniture.image.url
+                image=furniture.image.url,
             )
 
             # (4) Update stock
+
             furniture.countInStock -= item.qty
             furniture.save()
-    serializer = OrderSerializer(order, many=False)
-    return Response(serializer.data)
+            
+        serializer = OrderSerializer(order, many=False)
+        return Response(serializer.data)
+    
+    
