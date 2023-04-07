@@ -15,6 +15,13 @@ import {
   USER_PROFILE_RESET,
 } from "../constants/userConstants";
 
+import {
+  CART_CLEAR_ITEMS,
+  CART_CLEAR_SHIPPING_DETAILS,
+  CART_CLEAR_PAYMENT_METHOD,
+} from "../constants/cartConstants";
+
+
 export const login = (email, password) => async (dispatch) => {
   try {
     dispatch({ type: USER_LOGIN_REQUEST });
@@ -47,6 +54,10 @@ export const login = (email, password) => async (dispatch) => {
 export const logout = () => (dispatch) => {
   dispatch({ type: USER_LOGOUT });
   dispatch({ type: USER_PROFILE_RESET });
+
+  dispatch({ type: CART_CLEAR_ITEMS });
+  dispatch({ type: CART_CLEAR_SHIPPING_DETAILS });
+  dispatch({ type: CART_CLEAR_PAYMENT_METHOD });
 };
 
 

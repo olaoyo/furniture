@@ -30,7 +30,7 @@ function PaymentMethod() {
   const [paymentMethod, setPaymentMethod] = useState("PayPal");
 
   if (!address) {
-    navigate("Shipping", { paymentOption: pay});
+    navigate("Shipping");
   }
 
   const submitHandler = () => {

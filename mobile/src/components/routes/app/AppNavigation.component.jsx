@@ -7,6 +7,7 @@ import Details from "../../screens/details/Details";
 import Shipping from "../../screens/shipping/Shipping";
 import Payment from "../../screens/payment/Payment";
 import PlaceOrder from "../../screens/placeOrder/PlaceOrder";
+import OrderDetails from "../../screens/orderDetails/OrderDetails";
 
 import Account from "../../screens/profile/account/Account.component";
 import Orders from "../../screens/profile/orders/Orders.component";
@@ -86,6 +87,14 @@ function AppNavigation() {
           component={PlaceOrder}
           options={{
             title: "Place Order",
+          }}
+        />
+        
+        <Screen
+          name="Order Details"
+          component={OrderDetails}
+          options={{
+            title: "Order Details",
           }}
         />
       </Navigator>

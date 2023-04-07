@@ -13,6 +13,9 @@ const API = {
     shop: `${apiURL}/furniture/`,
     details: (id) => `${apiURL}/furniture/${id}/`,
   },
+
+  order: `${apiURL}/orders/add/`,
+  
 };
 
 export default API;

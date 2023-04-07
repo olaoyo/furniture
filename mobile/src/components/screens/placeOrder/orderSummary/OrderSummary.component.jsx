@@ -1,3 +1,14 @@
+import { useLayoutEffect } from "react";
+
+import { useDispatch, useSelector } from "react-redux";
+
+import { useNavigation } from "@react-navigation/native";
+
+import {
+  createOrder,
+  resetOrder,
+} from "../../../../redux/actions/orderActions";
+
 import {
   OrderSummaryStyles,
   OrderDetails,
@@ -15,9 +26,38 @@ import { AuthButton as PlaceOrderButton } from "../../../buttons/Buttons";
 import formatCurrency from "../../../../utils/formatCurrency";
 
 function OrderSummary({ furniturePrice, shippingPrice, taxPrice, totalPrice }) {
+  const dispatch = useDispatch();
+
+  const { cartItems, shippingDetails, paymentMethod } = useSelector(
+    (state) => state.cart
+  );
+
+  const { error, loading, order, success } = useSelector(
+    (state) => state.orderCreate
+  );
   
+  const { navigate } = useNavigation();
+
+  useLayoutEffect(() => {
+    if (success) {
+      navigate("Order Details", { orderId: order._id });
+
+      dispatch(resetOrder());
+    }
+  }, [dispatch, navigate, order, success]);
+
   const placeOrderHandler = () => {
-    console.log("Place Order");
+    dispatch(
+      createOrder({
+        orderItems: cartItems,
+        shippingAddress: shippingDetails,
+        paymentMethod: paymentMethod,
+        furniturePrice: furniturePrice,
+        shippingPrice: shippingPrice,
+        taxPrice: taxPrice,
+        totalPrice: totalPrice,
+      })
+    );
   };
 
   return (
@@ -59,16 +99,29 @@ function OrderSummary({ furniturePrice, shippingPrice, taxPrice, totalPrice }) {
       <Spacer verticalTwo />
 
       <Center>
-        <PlaceOrderButton
-          transparent
-          border
-          icon="arrow-right-bold-outline"
-          mode="contained"
-          onPress={placeOrderHandler}
-          type="submit"
-        >
-          Place Order
-        </PlaceOrderButton>
+        {loading ? (
+          <PlaceOrderButton
+            transparent
+            border
+            icon="arrow-right-bold-outline"
+            mode="contained"
+            onPress={placeOrderHandler}
+            type="submit"
+          >
+            Processing ...
+          </PlaceOrderButton>
+        ) : (
+          <PlaceOrderButton
+            transparent
+            border
+            icon="arrow-right-bold-outline"
+            mode="contained"
+            onPress={placeOrderHandler}
+            type="submit"
+          >
+            Place Order
+          </PlaceOrderButton>
+        )}
       </Center>
       <Spacer verticalTwo />
     </OrderSummaryStyles>
