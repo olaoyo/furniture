@@ -13,14 +13,17 @@ import {
   USER_PROFILE_SUCCESS,
   USER_PROFILE_FAIL,
   USER_PROFILE_RESET,
+  USER_UPDATE_PROFILE_REQUEST,
+  USER_UPDATE_PROFILE_SUCCESS,
+  USER_UPDATE_PROFILE_FAIL,
+  USER_UPDATE_PROFILE_RESET,
 } from "../constants/userConstants";
 
-import { 
-  CART_CLEAR_ITEMS, 
-  CART_CLEAR_SHIPPING_DETAILS, 
-  CART_CLEAR_PAYMENT_METHOD 
+import {
+  CART_CLEAR_ITEMS,
+  CART_CLEAR_SHIPPING_DETAILS,
+  CART_CLEAR_PAYMENT_METHOD,
 } from "../constants/cartConstants";
-
 
 export const login = (email, password) => async (dispatch) => {
   try {
@@ -53,9 +56,8 @@ export const login = (email, password) => async (dispatch) => {
 };
 
 export const logout = () => (dispatch) => {
-  
   localStorage.removeItem("userInfo");
-  
+
   localStorage.removeItem("cartItems");
   localStorage.removeItem("shippingDetails");
   localStorage.removeItem("paymentMethod");
@@ -68,7 +70,8 @@ export const logout = () => (dispatch) => {
   dispatch({ type: CART_CLEAR_PAYMENT_METHOD });
 };
 
-export const register = (name, surname, email, password) => async (dispatch) => {
+export const register =
+  (name, surname, email, password) => async (dispatch) => {
     try {
       dispatch({ type: USER_REGISTER_REQUEST });
 
@@ -117,8 +120,6 @@ export const getUserProfile = (id) => async (dispatch, getState) => {
     const { data } = await axios.get(API.auth.profile(id), config);
 
     dispatch({ type: USER_PROFILE_SUCCESS, payload: data });
-
-    
   } catch (error) {
     dispatch({
       type: USER_PROFILE_FAIL,
@@ -129,3 +130,44 @@ export const getUserProfile = (id) => async (dispatch, getState) => {
     });
   }
 };
+
+export const updateUserProfile = (user) => async (dispatch, getState) => {
+  try {
+    dispatch({ type: USER_UPDATE_PROFILE_REQUEST });
+
+    const { userLogin: { userInfo: { token } } } = getState();
+
+    const config = {
+      headers: {
+        "Content-type": "application/json",
+        Authorization: `Bearer ${token}`,
+      }
+    };
+
+    const { data } = await axios.put(API.auth.update, user, config);
+
+    dispatch({ type: USER_UPDATE_PROFILE_SUCCESS, payload: data });
+
+    // Automatically login with updated userInfo for our state
+    dispatch({ type: USER_LOGIN_SUCCESS, payload: data });
+
+    // Set userProfile in localStore on updating
+    localStorage.setItem("userInfo", JSON.stringify(data)); 
+
+  } catch (error) {
+    dispatch({
+      type: USER_UPDATE_PROFILE_FAIL,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    });
+  }
+};
+
+export const updateUserProfileReset = () => (dispatch) => {
+
+  dispatch({ type: USER_UPDATE_PROFILE_RESET });
+
+};
+

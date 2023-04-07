@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import Loading from "../../../../loading/Loading.component";
 import Message from "../../../../message/Message.component";
 
-import { getUserProfile } from "../../../../../redux/actions/userActions";
+import { getUserProfile, updateUserProfile, updateUserProfileReset } from "../../../../../redux/actions/userActions";
 
 import { useNavigate } from "react-router-dom";
 
@@ -40,31 +40,50 @@ function ProfileForm() {
   // Check if user is logged in
   const { userInfo } = useSelector((state) => state.userLogin);
 
+  // Check if updateProfile returned success and  re-rendender for useEffect
+  const { loading: updateLoading, error: updateError, success } = useSelector((state) => state.userUpdateProfile);
+
   useEffect(() => {
     if (!userInfo) {
+
       navigate(routeURL.auth.login);
 
     } else {
+      if (!user || !user.name || success) {
 
-      if (!user || !user.name) {
+        // Reset userProfile
+        dispatch(updateUserProfileReset());
+
         dispatch(getUserProfile("profile"));
 
       } else {
-        setName(user.name)
-        setSurname(user.surname)
-        setEmail(user.email)
+        setName(user.name);
+        setSurname(user.surname);
+        setEmail(user.email);
       }
     }
-  }, [dispatch, navigate, user, userInfo]);
+  }, [dispatch, navigate, success, user, userInfo]);
 
   const updateHandler = (event) => {
     event.preventDefault();
 
     if (password !== confirmPassword) {
+
       setMessage("Your memorable passwords are different 😭");
-      
+
     } else {
-      console.log("Updating...");
+      
+      setMessage("");
+
+      dispatch(
+        updateUserProfile({
+          id: user._id,
+          name: name,
+          surname: surname,
+          email: email,
+          password: password,
+        })
+      );
     }
   };
 
@@ -74,7 +93,6 @@ function ProfileForm() {
       {error && <Message>{error}</Message>}
       {loading && <Loading />}
       <ProfileFormStyles>
-
         <MyProfile>
           <Form onSubmit={updateHandler}>
             <Header>My Profile</Header>
@@ -114,7 +132,7 @@ function ProfileForm() {
             <LabelAndInput>
               <Label>Password</Label>
               <Input
-                // type="password"
+                type="password"
                 placeholder="Please Update your password"
                 value={password}
                 onChange={(event) => setPassword(event.target.value)}
@@ -123,33 +141,35 @@ function ProfileForm() {
             </LabelAndInput>
 
             <LabelAndInput>
-            <Label>Confirm Password</Label>
-            <Input
-              type="password"
-              placeholder="Confirm your updated password"
-              value={confirmPassword}
-              onChange={(event) => setConfirmPassword(event.target.value)}
-              id="confirmPassword"
-              required
-            />
-          </LabelAndInput>
+              <Label>Confirm Password</Label>
+              <Input
+                type="password"
+                placeholder="Confirm your updated password"
+                value={confirmPassword}
+                onChange={(event) => setConfirmPassword(event.target.value)}
+                id="confirmPassword"
+              />
+            </LabelAndInput>
             <LoginAndRegister>
-              <RegisterButton type="submit">Update</RegisterButton>
-              
+              {updateLoading ? (
+                <RegisterButton type="submit">Updating ...</RegisterButton>
+              ) : updateError ? (
+                <RegisterButton type="submit">Error Updating</RegisterButton>
+              ) : (
+                <RegisterButton type="submit">Update</RegisterButton>
+              )}
             </LoginAndRegister>
           </Form>
         </MyProfile>
 
         <MyOrders>
-          <Form onSubmit={updateHandler}>
+          <Form>
             <Header>My Orders</Header>
           </Form>
         </MyOrders>
-
       </ProfileFormStyles>
     </>
   );
 }
 
 export default ProfileForm;
-

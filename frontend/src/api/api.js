@@ -7,6 +7,7 @@ const API = {
     register: `${apiURL}/users/register/`,
     login: `${apiURL}/users/login/`,
     profile: (id) => `${apiURL}/users/${id}/`,
+    update: `${apiURL}/users/profile/update/`,
   },
 
   furniture: {
