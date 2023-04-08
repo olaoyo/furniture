@@ -1,8 +1,12 @@
 import { useState, useLayoutEffect } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 import { ActivityIndicator } from "react-native";
 import Message from "../../../message/Message.component";
+
+import { getUserProfile, updateUserProfile, updateUserProfileReset } from "../../../../redux/actions/userActions";
+
+import { useNavigation } from "@react-navigation/native";
 
 import { AuthButton } from "../../../buttons/Buttons";
 
@@ -32,43 +36,77 @@ function Account() {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [message, setMessage] = useState("");
 
+  const dispatch = useDispatch();
+
+  const { navigate } = useNavigation();
+
+  const { userInfo } = useSelector((state) => state.userLogin);
+
   const { loading, user } = useSelector((state) => state.userProfile);
 
-  // Set text updates from db user profile
-  useLayoutEffect(() => {
-    if (user && user.name) {
-      setName(user.name)
-      setSurname(user.surname)
-      setEmail(user.email)
-    }
-  }, [user]);
+  const { error: updateError, loading: updateLoading, success } = useSelector((state) => state.userProfileUpdate);
   
+  useLayoutEffect(() => {
+
+    if (!userInfo) {
+
+      navigate("Login");
+
+    } else {
+
+      if (!user || !user.name || success) {
+
+        // Reset userProfile
+        dispatch(updateUserProfileReset());
+
+        // Set text updates from db user profile
+        dispatch(getUserProfile("profile"));
+
+      } else {
+        setName(user.name);
+        setSurname(user.surname);
+        setEmail(user.email);
+      }
+    }
+  }, [dispatch, navigate, success, user, userInfo]);
+
   const updateHandler = () => {
+
     if (name === "") {
       setMessage("Invalid name. Please check the form and try again");
-      return
+      return;
     }
 
     if (surname === "") {
       setMessage("Invalid surname. Please check the form and try again");
-      return
+      return;
     }
 
     if (email === "" || !email.includes("@")) {
       setMessage("Invalid email. Please check the form and try again");
-      return
+      return;
     }
 
     if (password !== confirmPassword) {
       setMessage("Your memorable passwords are different 😭");
-      return
-    }
-    
-    else {
-      console.log("Updating...");
+      return;
+
+    } else {
+      
+      setMessage("");
+
+      dispatch(
+          updateUserProfile({
+          id: user._id,
+          name: name,
+          surname: surname,
+          email: email,
+          password: password,
+        })
+      );
+
     }
   };
-
 
   return (
     <>
@@ -152,14 +190,34 @@ function Account() {
                     <Spacer verticalOne />
 
                     <LoginAndRegister>
-                      <AuthButton
-                        border
-                        icon="account-edit-outline"
-                        mode="contained"
-                        onPress={updateHandler}
-                      >
-                        Update
-                      </AuthButton>
+                      {updateLoading ? (
+                        <AuthButton
+                          border
+                          icon="account-edit-outline"
+                          mode="contained"
+                          onPress={updateHandler}
+                        >
+                          Updating ...
+                        </AuthButton>
+                      ) : updateError ? (
+                        <AuthButton
+                          border
+                          icon="account-edit-outline"
+                          mode="contained"
+                          onPress={updateHandler}
+                        >
+                          Update Error
+                        </AuthButton>
+                      ) : (
+                        <AuthButton
+                          border
+                          icon="account-edit-outline"
+                          mode="contained"
+                          onPress={updateHandler}
+                        >
+                          Update
+                        </AuthButton>
+                      )}
                     </LoginAndRegister>
                     {message.length && (
                       <ErrorContainer>
@@ -242,14 +300,34 @@ function Account() {
                     <Spacer verticalOne />
 
                     <LoginAndRegister>
-                      <AuthButton
-                        border
-                        icon="account-edit-outline"
-                        mode="contained"
-                        onPress={updateHandler}
-                      >
-                        Update
-                      </AuthButton>
+                    {updateLoading ? (
+                        <AuthButton
+                          border
+                          icon="account-edit-outline"
+                          mode="contained"
+                          onPress={updateHandler}
+                        >
+                          Updating ...
+                        </AuthButton>
+                      ) : updateError ? (
+                        <AuthButton
+                          border
+                          icon="account-edit-outline"
+                          mode="contained"
+                          onPress={updateHandler}
+                        >
+                          Update Error
+                        </AuthButton>
+                      ) : (
+                        <AuthButton
+                          border
+                          icon="account-edit-outline"
+                          mode="contained"
+                          onPress={updateHandler}
+                        >
+                          Update
+                        </AuthButton>
+                      )}
                     </LoginAndRegister>
                   </>
                 )}

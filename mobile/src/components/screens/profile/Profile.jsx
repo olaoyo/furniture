@@ -21,16 +21,21 @@ function Profile({ navigation }) {
   // Check if user is logged in
   const { userInfo } = useSelector((state) => state.userLogin);
 
+  // Check if updateProfile returned success and  re-rendender for useEffect
+  const { success } = useSelector((state) => state.userProfileUpdate);
+
   useLayoutEffect(() => {
     if (!userInfo) {
-      navigation.navigate("Home");
+
+      navigation.navigate("Login");
+
     } else {
       
-      if (!user || !user.name) {
+      if (!user || !user.name || success) {
         dispatch(getUserProfile("profile"))
       }
     }
-  }, [dispatch, navigation, user, userInfo])
+  }, [dispatch, navigation, success, user, userInfo])
 
   const loginHandler = () => {
     navigation.navigate("Login");

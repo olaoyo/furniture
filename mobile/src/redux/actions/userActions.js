@@ -13,6 +13,10 @@ import {
   USER_PROFILE_SUCCESS,
   USER_PROFILE_FAIL,
   USER_PROFILE_RESET,
+  USER_UPDATE_PROFILE_REQUEST,
+  USER_UPDATE_PROFILE_SUCCESS,
+  USER_UPDATE_PROFILE_FAIL,
+  USER_UPDATE_PROFILE_RESET,
 } from "../constants/userConstants";
 
 import {
@@ -100,7 +104,7 @@ export const getUserProfile = (id) => async (dispatch, getState) => {
 
     const { userLogin: { userInfo: { token } } } = getState();
 
-    config = {
+    const config = {
       headers: {
         "Content-type": "application/json",
         Authorization: `Bearer ${token}`, 
@@ -121,3 +125,44 @@ export const getUserProfile = (id) => async (dispatch, getState) => {
     });
   }
 }
+
+
+export const updateUserProfile = (user) => async (dispatch, getState) => {
+  try {
+
+    dispatch({ type: USER_UPDATE_PROFILE_REQUEST });
+
+    const { userLogin: { userInfo: { token } } } = getState();
+
+    const config = {
+      headers: {
+        "Content-type": "application/json",
+        Authorization: `Bearer ${token}`,
+      }
+    };
+
+    const { data } = await axios.put(API.auth.update, user, config);
+
+    dispatch({ type: USER_UPDATE_PROFILE_SUCCESS, payload: data });
+
+    // Automatically login with updated userInfo for our state. This persists userLoginConfig
+    dispatch({ type: USER_LOGIN_SUCCESS, payload: data });
+
+  } catch (error) {
+    dispatch({
+      type: USER_UPDATE_PROFILE_FAIL,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    });
+  }
+};
+
+
+export const updateUserProfileReset = () => (dispatch) => {
+
+  dispatch({ type: USER_UPDATE_PROFILE_RESET })
+
+}; 
+
