@@ -64,4 +64,24 @@ def add_order_items(request):
         serializer = OrderSerializer(order, many=False)
         return Response(serializer.data)
     
-    
+
+
+@api_view(["GET"])
+@permission_classes([IsAuthenticated])
+def get_order_by_id(request, order_id):
+
+    user = request.user
+
+    try:
+        order = Order.objects.get(_id = order_id)
+
+        if user.is_staff or order.user == user:
+            serializer = OrderSerializer(order, many = False)
+
+            return Response(serializer.data)
+        
+        else:
+            return Response({ "detail": "Unfortunately, you are not authorized to view this order" }, status = status.HTTP_401_UNAUTHORIZED)
+
+    except: 
+        return Response({ "detail": "Your selected order does not exist" }, status = status.HTTP_404_NOT_FOUND)
